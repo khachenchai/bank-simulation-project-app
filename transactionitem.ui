@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TransactionItem</class>
+ <widget class="QWidget" name="TransactionItem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>479</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* เปลี่ยนจาก QWidget เป็นชื่อ Class ของคุณ */
+TransactionItem { 
+    background: rgba(255, 255, 255, 50);
+    border-radius: 20px;
+    border: 1px solid #dbdbdb;
+}
+
+TransactionItem::hover {
+    background: rgba(255, 255, 255, 90);
+}
+
+/* ปิดขอบของลูกๆ เพื่อไม่ให้มันวาดซ้อน */
+QLabel, QPushButton {
+    border: none;
+    background: transparent;
+}</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="labelTitle">
+     <property name="font">
+      <font>
+       <family>Kanit</family>
+       <pointsize>-1</pointsize>
+       <fontweight>DemiBold</fontweight>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-size: 20px;
+color: #000;
+background: transparent;
+border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>โอน</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelAmount">
+     <property name="font">
+      <font>
+       <family>Kanit</family>
+       <pointsize>-1</pointsize>
+       <fontweight>DemiBold</fontweight>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-size: 16px;
+color: red;
+/* color: #00ad40; */
+background: transparent;
+border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>- 100 บาท</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelDate">
+     <property name="font">
+      <font>
+       <family>Kanit</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-size: 16px;
+color: #000;
+background: transparent;
+border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>1 พ.ค. 2569</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton_4">
+     <property name="font">
+      <font>
+       <family>Kanit</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: #facc14;
+padding: 10px;
+border-radius: 20px;
+color: black;
+font-size: 16px;
+</string>
+     </property>
+     <property name="text">
+      <string>กดเพื่อดูรายละเอียด</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton_5">
+     <property name="font">
+      <font>
+       <family>Kanit</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: #3e80c2;
+padding: 10px;
+border-radius: 20px;
+color: white;
+font-size: 16px;
+</string>
+     </property>
+     <property name="text">
+      <string>พิมพ์ใบเสร็จ</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

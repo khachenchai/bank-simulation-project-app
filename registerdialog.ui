@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RegisterDialog</class>
+ <widget class="QDialog" name="RegisterDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>970</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: #FFF3E2;
+border-radius: 20px;
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="widget_7" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="LogoLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>120</height>
+         </size>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">/*border: 2px solid red;*/</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="resources.qrc">:/assets/assets/img/logo_resized.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="Title">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Kanit</family>
+       <pointsize>24</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: transparent;
+color: #484848;
+margin-top: -10px;
+/*border: 2px solid blue;*/
+padding: 4px;
+</string>
+     </property>
+     <property name="text">
+      <string>ลงทะเบียน</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="MainContainer" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>4</number>
+      </property>
+      <item>
+       <widget class="QWidget" name="Row1" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: transparent;</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="spacing">
+          <number>10</number>
+         </property>
+         <item>
+          <widget class="QComboBox" name="prefixEdit">
+           <property name="font">
+            <font>
+             <family>Kanit</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QComboBox {
+    background-color: #FFFFFF;
+   border-radius: 10px;
+border: 2px solid #26ad00;
+
+    padding: 8px 12px;
+
+    color: #9E9E9E;
+    font-size: 18px;
+	overflow: hidden;
+}
+
+
+/* ตอน hover */
+QComboBox:hover {
+    border-color: #000000;
+}
+
+/* ตอนกด */
+QComboBox:on {
+    background-color: #FAFAFA;
+}
+
+/* dropdown list */
+QComboBox QAbstractItemView {
+    background-color: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 8px;
+
+    selection-background-color: #E0E0E0;
+    selection-color: #000000;
+
+    padding: 6px;
+}
+</string>
+           </property>
+           <property name="placeholderText">
+            <string>คำนำหน้า</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>ด.ช.</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ด.ญ.</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>นาย</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>นางสาว</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="firstnameEdit">
+           <property name="font">
+            <font>
+             <family>Kanit</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">padding: 8px 12px;
+font-size: 18px;
+background: white;
+border-radius: 10px;
+border: 2px solid #26ad00;
+</string>
+           </property>
+           <property name="placeholderText">
+            <string>ชื่อจริง</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lastnameEdit">
+           <property name="font">
+            <font>
+             <family>Kanit</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">padding: 8px 12px;
+font-size: 18px;
+background: white;
+border-radius: 10px;
+border: 2px solid #26ad00;
+</string>
+           </property>
+           <property name="placeholderText">
+            <string>นามสกุล</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="Row2" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,2,1">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLineEdit" name="telEdit">
+           <property name="font">
+            <font>
+             <family>Kanit</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">padding: 8px 12px;
+font-size: 18px;
+background: white;
+border-radius: 10px;
+border: 2px solid #26ad00;
+</string>
+           </property>
+           <property name="placeholderText">
+            <string>เบอร์โทรศัพท์</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="ctzIdEdit">
+           <property name="font">
+            <font>
+             <family>Kanit</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">padding: 8px 12px;
+font-size: 18px;
+background: white;
+border-radius: 10px;
+border: 2px solid #26ad00;
+</string>
+           </property>
+           <property name="placeholderText">
+            <string>รหัสประชาชน 13 หลัก</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="genderEdit">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Kanit</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QComboBox {
+    background-color: #FFFFFF;
+   border-radius: 10px;
+border: 2px solid #26ad00;
+
+    padding: 8px 12px;
+
+    color: #9E9E9E;
+    font-size: 18px;
+	overflow: hidden;
+}
+
+
+/* ตอน hover */
+QComboBox:hover {
+    border-color: #000000;
+}
+
+/* ตอนกด */
+QComboBox:on {
+    background-color: #FAFAFA;
+}
+
+/* dropdown list */
+QComboBox QAbstractItemView {
+    background-color: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 8px;
+
+    selection-background-color: #E0E0E0;
+    selection-color: #000000;
+
+    padding: 6px;
+}
+</string>
+           </property>
+           <property name="placeholderText">
+            <string>เพศ</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>ชาย</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>หญิง</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="Row3" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLineEdit" name="passwordEdit">
+           <property name="font">
+            <font>
+             <family>Kanit</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">padding: 8px 12px;
+font-size: 18px;
+background: white;
+border-radius: 10px;
+border: 2px solid #26ad00;
+</string>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::EchoMode::Password</enum>
+           </property>
+           <property name="placeholderText">
+            <string>รหัสผ่าน (ตัวเลข 6 หลัก)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="confirmPasswordEdit">
+           <property name="font">
+            <font>
+             <family>Kanit</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">padding: 8px 12px;
+font-size: 18px;
+background: white;
+border-radius: 10px;
+border: 2px solid #26ad00;
+</string>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::EchoMode::Password</enum>
+           </property>
+           <property name="placeholderText">
+            <string>ยืนยันรหัสผ่าน</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="RowBtn" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>240</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="RegisterBtn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <family>Kanit</family>
+             <pointsize>-1</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: #009E2A;
+padding: 10px;
+margin-top: 10px;
+border-radius: 10px;
+color: white;
+font-size: 20px;
+font-weight: bold;
+width: 200px;
+
+</string>
+           </property>
+           <property name="text">
+            <string>ลงทะเบียน</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>240</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="RowLink" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QLabel" name="ToLogin">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <family>Kanit</family>
+             <pointsize>-1</pointsize>
+             <fontweight>Medium</fontweight>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+    color: #888;
+    font-size: 16px;
+	padding: 0px 0;
+}
+
+QLabel a {
+    color: #1BAA3D;
+    text-decoration: underline;
+    font-weight: bold;
+}</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;มีบัญชีแล้ว? &lt;a href=&quot;login&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#27bf73;&quot;&gt;เข้าสู่ระบบ&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::TextFormat::RichText</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

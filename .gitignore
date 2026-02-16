@@ -1,0 +1,32 @@
+# Build folders
+build/
+build-*/
+cmake-build-*/
+.qtcreator/
+
+# Qt Creator
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.user
+*.autosave
+
+# Object files
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# macOS
+.DS_Store
+
+# Windows
+*.pdb
+*.ilk
