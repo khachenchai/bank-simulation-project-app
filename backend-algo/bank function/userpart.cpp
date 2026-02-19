@@ -100,6 +100,7 @@ void registerFunc(string username,string password, double balance){
     user << u.id<<'|'<< u.userid <<'|'<<u.username<<'|'<<hash<<'|'<<u.salt<<'|'<<u.balance<<endl;
     user.close();
 }
+
 bool loginSuccess = false;
 User loginUser;
 void login(string inputusername,string inputpassword){
@@ -117,6 +118,14 @@ void login(string inputusername,string inputpassword){
                 cout << "Wrong password\n";
                 break;
             } 
+        }
+    }
+}
+void reloadLoginUser(){
+    for(int i=0;i<allUsers.size();i++){
+        if(allUsers[i].userid == loginUser.userid){
+            allUsers[i] = loginUser;
+            break;
         }
     }
 }
