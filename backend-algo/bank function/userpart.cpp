@@ -121,13 +121,15 @@ void login(string inputusername,string inputpassword){
     }
 }
 int main() {
-    // loadDataFromFile();
-    // registerFunc("eq", "littlebear",0);
-    // registerFunc("chenchoy", "kontairakjing",1000);
-    // registerFunc("dog","sleepy",200);
-    // registerFunc("eq", "fahrakphor",500);//same username case test
-    // cout << "ID " << allUsers[0].id<<"UserID: " << allUsers[0].userid << " Username: " << allUsers[0].username << " Password: " << allUsers[0].password << " Salt: " << allUsers[0].salt << " Balance: " << allUsers[0].balance << endl;
-    // login("chenchoy","kontairakjing");
-    // cout << "ID " << loginUser.id<<" UserID: " << loginUser.userid << " Username: " << loginUser.username << " Balance: " << loginUser.balance << endl;
-    // return 0;
+    loadDataFromFile();
+    registerFunc("eq", "littlebear",0);
+    registerFunc("chenchoy", "kontairakjing",1000);
+    registerFunc("dog","sleepy",200);
+    registerFunc("eq", "fahrakphor",500);//same username case test
+    cout << "ID " << allUsers[0].id<<"UserID: " << allUsers[0].userid << " Username: " << allUsers[0].username << " Password: " << allUsers[0].password << " Salt: " << allUsers[0].salt << " Balance: " << allUsers[0].balance << endl;
+    login("chenchoy","kontairakjing");
+    //cout << "ID " << loginUser.id<<" UserID: " << loginUser.userid << " Username: " << loginUser.username << " Balance: " << loginUser.balance << endl;
+    loginUser.balance += 500;
+    cout << "ID " << loginUser.id<<" UserID: " << loginUser.userid << " Username: " << loginUser.username << " Balance: " << loginUser.balance << endl;
+    return 0;
 }
