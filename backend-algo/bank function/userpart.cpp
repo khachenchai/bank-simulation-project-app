@@ -100,6 +100,7 @@ void registerFunc(string username,string password, double balance){
     user << u.id<<'|'<< u.userid <<'|'<<u.username<<'|'<<hash<<'|'<<u.salt<<'|'<<u.balance<<endl;
     user.close();
 }
+
 bool loginSuccess = false;
 User loginUser;
 void login(string inputusername,string inputpassword){
@@ -120,14 +121,36 @@ void login(string inputusername,string inputpassword){
         }
     }
 }
+void reloadLoginUser(){
+    for(int i=0;i<allUsers.size();i++){
+        if(allUsers[i].userid == loginUser.userid){
+            allUsers[i] = loginUser;
+            break;
+        }
+    }
+}
+void rewritetxt(){
+    ofstream outFile("../database/demo_user.txt");
+    if (outFile.is_open()) {
+        outFile << "id|userid|username|password|salt|balance" << endl;
+        for (const auto& user : allUsers) {
+            outFile << user.id << '|' << user.userid << '|' << user.username << '|' << user.password << '|' << user.salt << '|'<< user.balance << endl;
+        }
+        outFile.close();
+}
+}
 int main() {
-    // loadDataFromFile();
-    // registerFunc("eq", "littlebear",0);
-    // registerFunc("chenchoy", "kontairakjing",1000);
-    // registerFunc("dog","sleepy",200);
-    // registerFunc("eq", "fahrakphor",500);//same username case test
-    // cout << "ID " << allUsers[0].id<<"UserID: " << allUsers[0].userid << " Username: " << allUsers[0].username << " Password: " << allUsers[0].password << " Salt: " << allUsers[0].salt << " Balance: " << allUsers[0].balance << endl;
-    // login("chenchoy","kontairakjing");
-    // cout << "ID " << loginUser.id<<" UserID: " << loginUser.userid << " Username: " << loginUser.username << " Balance: " << loginUser.balance << endl;
-    // return 0;
+    loadDataFromFile();
+    registerFunc("eq", "littlebear",0);
+    registerFunc("chenchoy", "kontairakjing",1000);
+    registerFunc("dog","sleepy",200);
+    registerFunc("cat","kitty",300);
+    registerFunc("q", "fahrakphor",500);
+    registerFunc("eq", "fahrakphor",500);
+    cout << "ID " << allUsers[0].id<<"UserID: " << allUsers[0].userid << " Username: " << allUsers[0].username << " Password: " << allUsers[0].password << " Salt: " << allUsers[0].salt << " Balance: " << allUsers[0].balance << endl;
+    login("chenchoy","kontairakjing");
+    loginUser.balance += 500;
+    reloadLoginUser();
+    rewritetxt();
+    return 0;
 }
