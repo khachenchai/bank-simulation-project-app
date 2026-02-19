@@ -2,6 +2,7 @@
 #define TOPUPDIALOG_H
 
 #include <QDialog>
+#include <QString>
 
 namespace Ui {
 class TopUpDialog;
@@ -15,8 +16,14 @@ public:
     explicit TopUpDialog(QWidget *parent = nullptr);
     ~TopUpDialog();
 
+private slots:
+    void onBankAClicked();
+    void onBankBClicked();
+    void onSubmitClicked();
+
 private:
     Ui::TopUpDialog *ui;
+    QString selectedBank;
 };
 
 #endif // TOPUPDIALOG_H
