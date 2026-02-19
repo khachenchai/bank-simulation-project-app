@@ -4,6 +4,10 @@
 #include<string>
 #include<vector>
 #include<random>
+#include <ctime>
+#include <chrono>
+#include <format>
+#include <iomanip>
 using namespace std;
 struct User {
     int id;
@@ -120,29 +124,83 @@ void login(string inputusername,string inputpassword){
         }
     }
 }
+void reloadLoginUser(){
+    for(int i=0;i<allUsers.size();i++){
+        if(allUsers[i].userid == loginUser.userid){
+            allUsers[i] = loginUser;
+            break;
+        }
+    }
+}
+void rewritetxt(){
+    ofstream outFile("../database/demo_user.txt");
+    if (outFile.is_open()) {
+        outFile << "id|userid|username|password|salt|balance" << endl;
+        for (const auto& user : allUsers) {
+            outFile << user.id << '|' << user.userid << '|' << user.username << '|' << user.password << '|' << user.salt << '|'<< user.balance << endl;
+        }
+        outFile.close();
+}
+}
+
+string getDateTimeStr() {
+        auto now = chrono::system_clock::now();
+        time_t t = chrono::system_clock::to_time_t(now);
+
+        tm tm{};
+    #ifdef _WIN32
+        localtime_s(&tm, &t);   // Windows
+    #else
+        localtime_r(&t, &tm);   // Linux / macOS
+    #endif
+
+        ostringstream oss;
+        oss << put_time(&tm, "%Y-%m-%d %H:%M:%S");
+        return oss.str();
+}
 
 void transfer(string inputuserid, double amount){
     loadDataFromFile();
-    bool check = true;
+    bool check = false, isAffort = true;
     for (int i=0;i<allUsers.size();i++){
         if(allUsers[i].userid == inputuserid){
-            check = false;
+            check = true;
             if(loginUser.balance < amount){
-                cout << "Not enough money\n";
+                // cout << "Not enough money\n"
+                isAffort = false;
                 break;
             }
             else{
-            allUsers[i].balance += amount;
-            loginUser.balance -= amount;
-            break;
+                allUsers[i].balance += amount;
+                loginUser.balance -= amount;
+                reloadLoginUser();
+                rewritetxt();
+                break;
             }
         }
-}
-    if(check){
+    }
+    if(!check){
         cout << "Wrong Userid\n";
+    } else if (!isAffort) cout << "Not enough money"; 
+    else {
+        ifstream transactionFile("../database/demo_transaction.txt");
+
+        string line;
+        int counter = 0;
+        while (getline(transactionFile,line)){
+            counter++;
+        }
+
+        transactionFile.close();
+        ofstream transactionFileOut("../database/demo_transaction.txt", ios::app);
+        int id = counter;
+        string dt = getDateTimeStr();
+
+        transactionFileOut << id << '|' << dt << '|' << "transfer" << '|' << loginUser.userid << '|' << inputuserid << endl;
+
+        transactionFileOut.close();
     }
 }
-
 
 
 

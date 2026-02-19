@@ -1,0 +1,2 @@
+id|date_time|transaction|balance|fromID|toID
+1|2026-02-19 18:05:27|transfer|118467|100041
