@@ -33,6 +33,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         topupdialog.h topupdialog.cpp topupdialog.ui
         confirmtransactiondialog.h confirmtransactiondialog.cpp confirmtransactiondialog.ui
         transferdialog.h transferdialog.cpp transferdialog.ui
+        confirmwithdrawdialog.h confirmwithdrawdialog.cpp confirmwithdrawdialog.ui
         # logindialog.h logindialog.cpp logindialog.ui
     )
 # Define target properties for Android with Qt 6 as:
