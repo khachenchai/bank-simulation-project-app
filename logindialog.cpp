@@ -2,6 +2,8 @@
 #include "ui_logindialog.h"
 #include "registerdialog.h"
 #include <iostream>
+#include <QMessageBox>
+#include <QWidget>
 using namespace std;
 
 LoginDialog::LoginDialog(QWidget *parent)
@@ -53,10 +55,35 @@ LoginDialog::~LoginDialog()
     delete ui;
 }
 
+bool checkIsNumerial(QString text) {
+    bool isNumerial = false;
+    text.toDouble(&isNumerial);
+    return isNumerial;
+}
+
 void LoginDialog::on_LoginBtn_clicked()
 {
-    cout << "Login Btn Clicked";
-    accept();
+    vector<QString> errors;
+    QString ctzId = ui->CtzIdEdit->text();
+    QString password = ui->PasswordEdit->text();
+
+    // validation
+    if (ctzId.isEmpty() || ctzId.size() != 13 || !checkIsNumerial(ctzId)) errors.push_back("กรุณากรอกเลขบัตรประจำตัวประชาชนให้ถูกต้อง");
+    if (password.isEmpty() || password.size() != 6 || !checkIsNumerial(password)) errors.push_back("กรุณากรอกตัวเลขรหัสผ่าน 6 ตัวให้ถูกต้อง");
+
+    if (errors.size() > 0) {
+        QString errorsText = "";
+        for (int i = 0; i < errors.size(); i++) {
+            errorsText += errors[i];
+            errorsText += '\n';
+        }
+        QMessageBox::warning(this, "Mhee Bank", errorsText);
+    } else {
+        // login func [Fuji's Real Backend Code Here]
+
+        cout << "Login Btn Clicked";
+        accept();
+    }
 
 }
 
