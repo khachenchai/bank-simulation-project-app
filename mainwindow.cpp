@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include <QGraphicsDropShadowEffect>
 #include "transactionitem.h"
+#include "topupdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -30,3 +31,10 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_TopupBtn_clicked()
+{
+    TopUpDialog dlg(this);
+    dlg.exec();
+}
+
