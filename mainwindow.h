@@ -17,6 +17,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_TopupBtn_clicked();
+
+    void on_TransferBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
