@@ -15,6 +15,9 @@ public:
     explicit TopUpDialog(QWidget *parent = nullptr);
     ~TopUpDialog();
 
+private slots:
+    void on_ConfirmBtn_clicked();
+
 private:
     Ui::TopUpDialog *ui;
 };

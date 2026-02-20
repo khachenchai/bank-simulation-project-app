@@ -423,7 +423,7 @@ color: #009E2A;
     </spacer>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_6">
+    <widget class="QPushButton" name="ConfirmBtn">
      <property name="font">
       <font>
        <family>Kanit</family>
