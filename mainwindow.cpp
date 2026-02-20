@@ -3,6 +3,7 @@
 #include <QGraphicsDropShadowEffect>
 #include "transactionitem.h"
 #include "topupdialog.h"
+#include "transferdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -35,6 +36,13 @@ MainWindow::~MainWindow()
 void MainWindow::on_TopupBtn_clicked()
 {
     TopUpDialog dlg(this);
+    dlg.exec();
+}
+
+
+void MainWindow::on_TransferBtn_clicked()
+{
+    TransferDialog dlg(this);
     dlg.exec();
 }
 
