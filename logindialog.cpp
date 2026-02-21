@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QMessageBox>
 #include <QWidget>
+#include "helper.h"
 using namespace std;
 
 LoginDialog::LoginDialog(QWidget *parent)
@@ -55,12 +56,6 @@ LoginDialog::~LoginDialog()
     delete ui;
 }
 
-bool checkIsNumerial(QString text) {
-    bool isNumerial = false;
-    text.toDouble(&isNumerial);
-    return isNumerial;
-}
-
 void LoginDialog::on_LoginBtn_clicked()
 {
     vector<QString> errors;
@@ -68,8 +63,8 @@ void LoginDialog::on_LoginBtn_clicked()
     QString password = ui->PasswordEdit->text();
 
     // validation
-    if (ctzId.isEmpty() || ctzId.size() != 13 || !checkIsNumerial(ctzId)) errors.push_back("กรุณากรอกเลขบัตรประจำตัวประชาชนให้ถูกต้อง");
-    if (password.isEmpty() || password.size() != 6 || !checkIsNumerial(password)) errors.push_back("กรุณากรอกตัวเลขรหัสผ่าน 6 ตัวให้ถูกต้อง");
+    if (ctzId.isEmpty() || ctzId.size() != 13 || !Helper::checkIsNumerial(ctzId)) errors.push_back("กรุณากรอกเลขบัตรประจำตัวประชาชนให้ถูกต้อง");
+    if (password.isEmpty() || password.size() != 6 || !Helper::checkIsNumerial(password)) errors.push_back("กรุณากรอกตัวเลขรหัสผ่าน 6 ตัวให้ถูกต้อง");
 
     if (errors.size() > 0) {
         QString errorsText = "";
