@@ -21,6 +21,13 @@ set(PROJECT_SOURCES
         logindialog.h
         logindialog.ui
         resources.qrc
+        backend/user.cpp
+        backend/transaction.cpp
+        backend/user.h
+        backend/transaction.h
+        db/user.txt
+        db/transaction.txt
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
