@@ -74,7 +74,7 @@ void LoginDialog::on_LoginBtn_clicked()
         }
         QMessageBox::warning(this, "Mhee Bank", errorsText);
     } else {
-        // login func [Fuji's Real Backend Code Here]
+        // login func [Backend Func Here]
 
         cout << "Login Btn Clicked";
         accept();
