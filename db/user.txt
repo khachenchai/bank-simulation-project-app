@@ -1,0 +1,1 @@
+id|userid|username|password|salt|balance
