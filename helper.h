@@ -1,12 +1,16 @@
 #ifndef HELPER_H
 #define HELPER_H
 
-#include <qcontainerfwd.h>
-#include <vector>
+#include <QVector>
+#include <QString>
 
 class Helper {
     public:
-    std::vector<QString>
+        static bool checkIsNumerial(const QString&);
+        static QString hashPassword(const QString& password, const QString& salt);
+        static QString generateSalt(int len = 16);
+        static QVector<QString> splitData(QString rowData, char seperator);
 };
+
 
 #endif // HELPER_H
