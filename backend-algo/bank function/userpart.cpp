@@ -1,9 +1,18 @@
-// central definitions for User and globals
-#include "userpart.h"
-
-// bring std symbols into scope
+#include<stdio.h>
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<vector>
+#include<random>
 using namespace std;
-
+struct User {
+    int id;
+    string userid;
+    string username;
+    string password;
+    string salt;
+    double balance;
+};
 vector<User> allUsers;
 string hashPassword(const string& password, const string& salt) {
     hash<string> hasher;

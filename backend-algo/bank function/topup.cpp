@@ -78,15 +78,8 @@ bool topupFunc(string selectedBank, double amount) {
 }
 
 int main() {
-    cout << "=== Create account 'newuser_auto' and topup 500 via Bank A ===" << endl;
-
-    // Load data
     loadDataFromFile();
-
-    // Register new user (will skip if username exists)
     registerFunc("newuser_auto", "pass123", 1000);
-
-    // Login
     login("newuser_auto", "pass123");
     if (!loginSuccess) {
         cout << "Login failed for newuser_auto" << endl;
@@ -94,8 +87,6 @@ int main() {
     }
 
     cout << "Logged in: " << loginUser.username << " | Balance: " << loginUser.balance << " baht" << endl;
-
-    // Top-up 500 via Bank A
     if (!topupFunc("Bank A", 500)) {
         cout << "Topup failed" << endl;
         return 1;
