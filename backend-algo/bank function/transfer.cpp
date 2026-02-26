@@ -8,22 +8,21 @@
 #include <chrono>
 #include <format>
 #include <iomanip>
+#include"userpart.h"
 using namespace std;
-struct User {
+
+class Usertransaction {
     int id;
-    string userid;
-    string username;
-    string password;
-    string salt;
-    double balance;
+    string datetime;
+    string transaction;
 };
-vector<User> allUsers;
+
 string hashPassword(const string& password, const string& salt) {
     hash<string> hasher;
     size_t hashed = hasher(password + salt);
     return to_string(hashed);
 }
-string generateSalt(int len = 16) {
+string generateSalt(int len) {
     const char charset[] =
         "0123456789"
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -51,7 +50,7 @@ vector<string> splitData(string rowData, char seperator) {
     return result;
 }
 int counter = 0;
-void loadDataFromFile(){
+void User::loadDataFromFile(){
     counter = 0;
     allUsers.clear();
     ifstream readfile("../database/demo_user.txt");
@@ -74,8 +73,7 @@ void loadDataFromFile(){
         allUsers.push_back(u);
     }
 }
-void registerFunc(string username,string password, double balance){
-    loadDataFromFile();
+void User::registerFunc(string username,string password, double balance){
     bool skipHeader = true;
     User u;
     u.username=username;
@@ -104,9 +102,10 @@ void registerFunc(string username,string password, double balance){
     user << u.id<<'|'<< u.userid <<'|'<<u.username<<'|'<<hash<<'|'<<u.salt<<'|'<<u.balance<<endl;
     user.close();
 }
+
 bool loginSuccess = false;
 User loginUser;
-void login(string inputusername,string inputpassword){
+void User::login(string inputusername,string inputpassword){
     loadDataFromFile();
     for (int i=0;i<allUsers.size();i++){
         if(allUsers[i].username == inputusername){
@@ -124,7 +123,7 @@ void login(string inputusername,string inputpassword){
         }
     }
 }
-void reloadLoginUser(){
+void User::reloadLoginUser(){
     for(int i=0;i<allUsers.size();i++){
         if(allUsers[i].userid == loginUser.userid){
             allUsers[i] = loginUser;
@@ -132,7 +131,7 @@ void reloadLoginUser(){
         }
     }
 }
-void rewritetxt(){
+void User::rewritetxt(){
     ofstream outFile("../database/demo_user.txt");
     if (outFile.is_open()) {
         outFile << "id|userid|username|password|salt|balance" << endl;
@@ -142,28 +141,42 @@ void rewritetxt(){
         outFile.close();
 }
 }
-
-string getDateTimeStr() {
-        auto now = chrono::system_clock::now();
-        time_t t = chrono::system_clock::to_time_t(now);
-
-        tm tm{};
-    #ifdef _WIN32
-        localtime_s(&tm, &t);   // Windows
-    #else
-        localtime_r(&t, &tm);   // Linux / macOS
-    #endif
-
-        ostringstream oss;
-        oss << put_time(&tm, "%Y-%m-%d %H:%M:%S");
-        return oss.str();
+bool User::Bank::topupFunc(string selectedBank, double amount) {
+    if (amount <= 0) {
+        cout << "Invalid amount. Amount must be greater than 0." << endl;
+        return false;
+    }
+    if (selectedBank != "Bank A" && selectedBank != "Bank B") {
+        cout << "Invalid bank selection." << endl;
+        return false;
+    }
+    loginUser.balance += amount;
+    User temp;
+    temp.reloadLoginUser();
+    temp.rewritetxt();
+    return true;
 }
 
-void transfer(string inputuserid, double amount){
-    loadDataFromFile();
+string getDateTimeStr() {
+    auto now = chrono::system_clock::now();
+    time_t now_c = chrono::system_clock::to_time_t(now);
+
+    tm local_tm{};
+    localtime_s(&local_tm, &now_c);
+
+    stringstream ss;
+    ss << put_time(&local_tm, "%Y-%m-%d %H:%M:%S");
+    return ss.str();
+}
+   
+
+void User::Bank::transfer(string inputuserid, double amount){
+
+    User temp;
+    temp.loadDataFromFile();
     bool check = false, isAffort = true;
-    for (int i=0;i<allUsers.size();i++){
-        if(allUsers[i].userid == inputuserid){
+    for (int i=0;i<temp.allUsers.size();i++){
+        if(temp.allUsers[i].userid == inputuserid){
             check = true;
             if(loginUser.balance < amount){
                 // cout << "Not enough money\n"
@@ -171,10 +184,10 @@ void transfer(string inputuserid, double amount){
                 break;
             }
             else{
-                allUsers[i].balance += amount;
+                temp.allUsers[i].balance += amount;
                 loginUser.balance -= amount;
-                reloadLoginUser();
-                rewritetxt();
+                temp.reloadLoginUser();
+                temp.rewritetxt();
                 break;
             }
         }
@@ -196,26 +209,48 @@ void transfer(string inputuserid, double amount){
         int id = counter;
         string dt = getDateTimeStr();
 
-        transactionFileOut << id << '|' << dt << '|' << "transfer" << '|' << loginUser.userid << '|' << inputuserid << endl;
+        transactionFileOut << id << '|' << dt << '|' << "transfer" << '|' << amount << '|' << loginUser.userid << '|' << inputuserid << endl;
 
         transactionFileOut.close();
     }
 }
 
+// vector<string> getUserTransaction(string filename, User loginuser){
+//     vector<string> resulttransaction;
+//     string line;
+//     bool skipHeader = true;
+
+//     ifstream infile(filename);
+
+//     while (getline(infile,line){
+        
+//         vector<string> data = splitData(line,'|')
+
+//         if (line == "" || line == "\r"){
+//             continue;
+//         }
+//         if (skipHeader) { skipHeader = false; continue; }
+//         vector<string> data = splitData(line,'|');
+//         User u;
+
+
+//     }
+    
+ 
+
+    
+// }
+
 
 
 int main() {
-    loadDataFromFile();
-    registerFunc("eq", "littlebear",0);
-    registerFunc("chenchoy", "kontairakjing",1000);
-    registerFunc("dog","sleepy",200);
-    registerFunc("eq", "fahrakphor",500);//same username case test
-    cout << "ID " << allUsers[0].id<<" UserID: " << allUsers[0].userid << " Username: " << allUsers[0].username << " Password: " << allUsers[0].password << " Salt: " << allUsers[0].salt << " Balance: " << allUsers[0].balance << endl;
-    login("chenchoy","kontairakjing");
-    cout << "ID " << loginUser.id<<" UserID: " << loginUser.userid << " Username: " << loginUser.username << " Balance: " << loginUser.balance << endl;
-    transfer("123",2000);// wrong userid
-    transfer("100041",200);
-    cout << "ID " << allUsers[0].id<<" UserID: " << allUsers[0].userid << " Username: " << allUsers[0].username << " Password: " << allUsers[0].password << " Salt: " << allUsers[0].salt << " Balance: " << allUsers[0].balance << endl;
-    cout << "ID " << loginUser.id<<" UserID: " << loginUser.userid << " Username: " << loginUser.username << " Balance: " << loginUser.balance << endl;
+
+    User systemRun;
+    User::Bank transaction;
+    systemRun.loadDataFromFile();
+    systemRun.registerFunc("gg","password123",500);
+    systemRun.login("gg","password123");
+    systemRun.registerFunc("dogshit","p4545435",5660);
+    transaction.transfer("118467",500);
     return 0;
 }
