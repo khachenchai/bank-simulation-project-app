@@ -1,19 +1,6 @@
-#include<stdio.h>
-#include<iostream>
+#include"userpart.h"
 #include<fstream>
-#include<string>
-#include<vector>
 #include<random>
-using namespace std;
-struct User {
-    int id;
-    string userid;
-    string username;
-    string password;
-    string salt;
-    double balance;
-};
-vector<User> allUsers;
 string hashPassword(const string& password, const string& salt) {
     hash<string> hasher;
     size_t hashed = hasher(password + salt);
@@ -47,7 +34,7 @@ vector<string> splitData(string rowData, char seperator) {
     return result;
 }
 int counter = 0;
-void loadDataFromFile(){
+void User::loadDataFromFile(){
     counter = 0;
     allUsers.clear();
     ifstream readfile("../database/demo_user.txt");
@@ -70,8 +57,7 @@ void loadDataFromFile(){
         allUsers.push_back(u);
     }
 }
-void registerFunc(string username,string password, double balance){
-    loadDataFromFile();
+void User::registerFunc(string username,string password, double balance){
     bool skipHeader = true;
     User u;
     u.username=username;
@@ -103,7 +89,7 @@ void registerFunc(string username,string password, double balance){
 
 bool loginSuccess = false;
 User loginUser;
-void login(string inputusername,string inputpassword){
+void User::login(string inputusername,string inputpassword){
     loadDataFromFile();
     for (int i=0;i<allUsers.size();i++){
         if(allUsers[i].username == inputusername){
@@ -121,7 +107,7 @@ void login(string inputusername,string inputpassword){
         }
     }
 }
-void reloadLoginUser(){
+void User::reloadLoginUser(){
     for(int i=0;i<allUsers.size();i++){
         if(allUsers[i].userid == loginUser.userid){
             allUsers[i] = loginUser;
@@ -129,7 +115,7 @@ void reloadLoginUser(){
         }
     }
 }
-void rewritetxt(){
+void User::rewritetxt(){
     ofstream outFile("../database/demo_user.txt");
     if (outFile.is_open()) {
         outFile << "id|userid|username|password|salt|balance" << endl;
@@ -139,18 +125,33 @@ void rewritetxt(){
         outFile.close();
 }
 }
+bool User::Bank::topupFunc(string selectedBank, double amount) {
+    if (amount <= 0) {
+        cout << "Invalid amount. Amount must be greater than 0." << endl;
+        return false;
+    }
+    if (selectedBank != "Bank A" && selectedBank != "Bank B") {
+        cout << "Invalid bank selection." << endl;
+        return false;
+    }
+    loginUser.balance += amount;
+    User temp;
+    temp.reloadLoginUser();
+    temp.rewritetxt();
+    return true;
+   
+}
+
 int main() {
-    loadDataFromFile();
-    registerFunc("eq", "littlebear",0);
-    registerFunc("chenchoy", "kontairakjing",1000);
-    registerFunc("dog","sleepy",200);
-    registerFunc("cat","kitty",300);
-    registerFunc("q", "fahrakphor",500);
-    registerFunc("eq", "fahrakphor",500);
-    cout << "ID " << allUsers[0].id<<"UserID: " << allUsers[0].userid << " Username: " << allUsers[0].username << " Password: " << allUsers[0].password << " Salt: " << allUsers[0].salt << " Balance: " << allUsers[0].balance << endl;
-    login("chenchoy","kontairakjing");
-    loginUser.balance += 500;
-    reloadLoginUser();
-    rewritetxt();
+    User systemRun;
+    User::Bank transaction;
+    systemRun.loadDataFromFile();
+    systemRun.login("chenchoy","kontairakjing");
+    systemRun.reloadLoginUser();
+    systemRun.rewritetxt();
+    systemRun.login("dog","sleepy");
+    transaction.topupFunc("Bank A", 500);
+    systemRun.registerFunc("gg","password123",500);
+    systemRun.login("gg","password123");
     return 0;
 }
