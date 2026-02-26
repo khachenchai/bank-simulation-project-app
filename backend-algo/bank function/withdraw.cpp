@@ -1,29 +1,47 @@
-// central definitions for User and globals
-#include "userpart.h"
-
-// bring std symbols into scope
+#include<stdio.h>
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<vector>
+#include<random>
+#include<ctime>
 using namespace std;
 
+struct User {
+    int id;
+    string userid;
+    string username;
+    string password;
+    string salt;
+    double balance;
+};
+
 vector<User> allUsers;
+User loginUser;
+bool loginSuccess = false;
+int counter = 0;
+
 string hashPassword(const string& password, const string& salt) {
     hash<string> hasher;
     size_t hashed = hasher(password + salt);
     return to_string(hashed);
 }
+
 string generateSalt(int len = 16) {
     const char charset[] =
         "0123456789"
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         "abcdefghijklmnopqrstuvwxyz";
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<> dis(0, sizeof(charset) - 2);
-        string salt;
-        for (int i = 0; i < len; i++) {
-            salt += charset[dis(gen)];
-        }
-        return salt;
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(0, sizeof(charset) - 2);
+    string salt;
+    for (int i = 0; i < len; i++) {
+        salt += charset[dis(gen)];
+    }
+    return salt;
 }
+
 vector<string> splitData(string rowData, char seperator) {
     string dataToAppend;
     vector<string> result;
@@ -37,7 +55,7 @@ vector<string> splitData(string rowData, char seperator) {
     result.push_back(dataToAppend);
     return result;
 }
-int counter = 0;
+
 void loadDataFromFile(){
     counter = 0;
     allUsers.clear();
@@ -61,6 +79,7 @@ void loadDataFromFile(){
         allUsers.push_back(u);
     }
 }
+
 void registerFunc(string username,string password, double balance){
     loadDataFromFile();
     bool skipHeader = true;
@@ -91,8 +110,7 @@ void registerFunc(string username,string password, double balance){
     user << u.id<<'|'<< u.userid <<'|'<<u.username<<'|'<<hash<<'|'<<u.salt<<'|'<<u.balance<<endl;
     user.close();
 }
-bool loginSuccess = false;
-User loginUser;
+
 void login(string inputusername,string inputpassword){
     loadDataFromFile();
     for (int i=0;i<allUsers.size();i++){
@@ -110,4 +128,55 @@ void login(string inputusername,string inputpassword){
             } 
         }
     }
+}
+
+void saveUserToFile() {
+    ofstream file("../database/demo_user.txt");
+    file << "id|userid|username|password|salt|balance" << endl;
+    for (int i = 0; i < allUsers.size(); i++) {
+        file << allUsers[i].id << '|' << allUsers[i].userid << '|' << allUsers[i].username << '|'
+             << allUsers[i].password << '|' << allUsers[i].salt << '|' << allUsers[i].balance << endl;
+    }
+    file.close();
+}
+
+string generateOTP() {
+    srand(time(0) + rand());
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(0, 9);
+    
+    string otp = "";
+    for (int i = 0; i < 6; i++) {
+        otp += to_string(dis(gen));
+    }
+    return otp;
+}
+
+string withdrawFunc(double amount) {
+    if (amount > loginUser.balance) {
+        return "";
+    }
+    string otp = generateOTP();
+    loginUser.balance -= amount;
+    for (int i = 0; i < allUsers.size(); i++) {
+        if (allUsers[i].username == loginUser.username) {
+            allUsers[i].balance = loginUser.balance;
+            break;
+        }
+    }
+
+    saveUserToFile();
+    return otp;
+}
+
+
+int main() {
+    
+    loadDataFromFile();
+    registerFunc("testuser", "password123", 5000);
+    login("testuser", "password123");
+    withdrawFunc(2000);
+    
+    return 0;
 }
