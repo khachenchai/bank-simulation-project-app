@@ -41,7 +41,7 @@ void User::loadDataFromFile(){
     readfile.close();
 }
 
-bool User::Bank::topupFunc(QString accId, QString selectedBank, double amount) {
+bool User::Function::topupFunc(QString accId, QString selectedBank, double amount) {
     if (selectedBank != "Bank A" && selectedBank != "Bank B") {
         return false;
     }
@@ -53,13 +53,13 @@ bool User::Bank::topupFunc(QString accId, QString selectedBank, double amount) {
     return true;
 }
 
-QString User::withdrawFunc(double amount) {
+QString User::Function::withdrawFunc(double amount) {
     if (amount > loginUser.balance) {
         return "";
     }
     QString otpStr = generateOTP();
     loginUser.balance -= amount;
-    reloadLoginUser();
-    rewritetxt();
-    return otpStr.toStdString();
+    User::reloadLoginUser();
+    User::rewritetxt();
+    return otpStr;
 }

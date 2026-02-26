@@ -13,13 +13,14 @@ class User {
         void login(QString inputusername,QString inputpassword);
         void reloadLoginUser();
         void rewritetxt();
-        string withdrawFunc(double amount);
+        
         QVector<User> allUsers;
-        class Bank {
+        class  Function {
             public:
             bool topupFunc(QString selectedBank, double amount);
+            QString withdrawFunc(double amount);
         };
-        friend class Bank;
+        friend class Function;
 };
 QString hashPassword(const QString& password, const QString& salt);
 QString generateSalt(int len = 16);
