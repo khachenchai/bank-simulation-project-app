@@ -2,6 +2,7 @@
 #include <QCryptographicHash>
 #include <QRandomGenerator>
 #include <QVector>
+#include <QString>
 
 bool Helper::checkIsNumerial(const QString& text)
 {
@@ -38,4 +39,18 @@ QVector<QString> Helper::splitData(QString rowData, char seperator) {
     }
     result.push_back(dataToAppend);
     return result;
+}
+
+
+
+QString generateOTP()
+{
+    QString otp;
+
+    for (int i = 0; i < 6; ++i) {
+        int digit = QRandomGenerator::global()->bounded(10); // 0–9
+        otp.append(QString::number(digit));
+    }
+
+    return otp;
 }
