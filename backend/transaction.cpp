@@ -1,4 +1,5 @@
 #include"user.h"
+#include "transaction.h"
 #include<QFile>
 #include<QTextStream>
 #include<QDebug>
@@ -53,7 +54,7 @@ bool User::Bank::topupFunc(QString accId, QString selectedBank, double amount) {
     return true;
 }
 
-QString User::withdrawFunc(double amount) {
+QString Transaction::withdrawFunc(double amount) {
     if (amount > loginUser.balance) {
         return "";
     }
@@ -62,4 +63,49 @@ QString User::withdrawFunc(double amount) {
     reloadLoginUser();
     rewritetxt();
     return otpStr.toStdString();
+}
+
+void Transaction::transfer(QString inputuserid, double amount){
+
+    User temp;
+    temp.loadDataFromFile();
+    bool check = false, isAffort = true;
+    for (int i=0;i<temp.allUsers.size();i++){
+        if(temp.allUsers[i].userid == inputuserid){
+            check = true;
+            if(loginUser.balance < amount){
+                // cout << "Not enough money\n"
+                isAffort = false;
+                break;
+            }
+            else{
+                temp.allUsers[i].balance += amount;
+                loginUser.balance -= amount;
+                temp.reloadLoginUser();
+                temp.rewritetxt();
+                break;
+            }
+        }
+    }
+    if(!check){
+        cout << "Wrong Userid\n";
+    } else if (!isAffort) cout << "Not enough money"; 
+    else {
+        ifstream transactionFile("../database/demo_transaction.txt");
+
+        string line;
+        int counter = 0;
+        while (getline(transactionFile,line)){
+            counter++;
+        }
+
+        transactionFile.close();
+        ofstream transactionFileOut("../database/demo_transaction.txt", ios::app);
+        int id = counter;
+        string dt = getDateTimeStr();
+
+        transactionFileOut << id << '|' << dt << '|' << "transfer" << '|' << amount << '|' << loginUser.userid << '|' << inputuserid << endl;
+
+        transactionFileOut.close();
+    }
 }
