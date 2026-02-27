@@ -3,7 +3,7 @@
 #include "ui_registerdialog.h"
 #include <QMessageBox>
 #include "helper.h"
-#include "user.h"
+#include "backend/user.h"
 
 RegisterDialog::RegisterDialog(QWidget *parent)
     : QDialog(parent)

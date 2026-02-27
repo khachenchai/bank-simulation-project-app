@@ -11,6 +11,7 @@ class Helper {
         static QString generateSalt(int len = 16);
         static QVector<QString> splitData(QString rowData, char seperator);
         static QString getDateTimeStr();
+        static QString generateOTP();
 };
 
 

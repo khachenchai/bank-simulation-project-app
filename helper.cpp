@@ -50,7 +50,7 @@ QVector<QString> Helper::splitData(QString rowData, char seperator) {
 
 
 
-QString generateOTP() {
+QString Helper::generateOTP() {
     QString otp;
 
     for (int i = 0; i < 6; ++i) {
