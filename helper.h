@@ -1,19 +1,17 @@
 #ifndef HELPER_H
 #define HELPER_H
 
-#include <qcontainerfwd.h>
-#include <vector>
+#include <QVector>
 #include <QString>
 
 class Helper {
     public:
         static bool checkIsNumerial(const QString&);
+        static QString hashPassword(const QString& password, const QString& salt);
+        static QString generateSalt(int len = 16);
+        static QVector<QString> splitData(QString rowData, char seperator);
+        static QString getDateTimeStr();
 };
 
-// bool Helper::checkIsNumerial(const QString &text) {
-//     bool isNumerial = false;
-//     text.toDouble(&isNumerial);
-//     return isNumerial;
-// }
 
 #endif // HELPER_H
