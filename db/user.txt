@@ -1,0 +1,1 @@
+id|userid|prefix|firstname|lastname|tel|ctzId|gender|password|salt|balance

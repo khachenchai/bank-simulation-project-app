@@ -1,4 +1,4 @@
-# การจำลองระบบจัดการธนาคาร (Banking System Simulation) 'Pre-coded Not the Final Product'
+# การจำลองระบบจัดการธนาคาร (Banking System Simulation)
 
 ### Dev By หมีน้อยคอยรัก
 
