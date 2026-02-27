@@ -3,6 +3,7 @@
 #include "ui_registerdialog.h"
 #include <QMessageBox>
 #include "helper.h"
+#include "user.h"
 
 RegisterDialog::RegisterDialog(QWidget *parent)
     : QDialog(parent)
@@ -50,6 +51,18 @@ void RegisterDialog::on_RegisterBtn_clicked()
         QMessageBox::warning(this, "Mhee Bank", errorsText);
     } else {
         // register func [Fuji's Real Backend Code Here]
+        User user;
+        bool isRegistSuccess = user.registerFunc(
+            prefix, fname, lname, tel, ctzId, gender, password, 500
+        );
+
+        if (isRegistSuccess == false) {
+            QMessageBox::warning(this, "Mhee Bank", "เลขบัตรประขาขนนี้ถูกใช้แล้ว");
+            return;
+        }
+
+        QMessageBox::information(this, "Mhee Bank", "สมัครสมาชิกสำเร็จ");
+
 
         LoginDialog dlg(this);
         dlg.exec();
