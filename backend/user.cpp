@@ -95,7 +95,7 @@ bool User::registerFunc(QString prefix, QString firstname, QString lastname, QSt
     QFile userFile("../db/user.txt");
     if (userFile.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&userFile);
-        out << id << '|' << userid << '|' << prefix << '|' << firstname << '|' << lastname << '|' << tel << '|' << ctzId << '|' << gender << '|' << hash << '|' << salt << '|' << balance << '\n';
+        out << newId << '|' << userId << '|' << prefix << '|' << firstname << '|' << lastname << '|' << tel << '|' << ctzId << '|' << gender << '|' << hash << '|' << salt << '|' << balance << '\n';
         userFile.close();
     }
 
@@ -121,7 +121,7 @@ bool User::login(QString inputCtzId, QString inputPassword){
             else{
                 qDebug() << "Wrong password";
                 return false;
-            } 
+            }
         }
     }
     qDebug() << "User not found";
