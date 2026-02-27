@@ -10,6 +10,7 @@ class Helper {
         static QString hashPassword(const QString& password, const QString& salt);
         static QString generateSalt(int len = 16);
         static QVector<QString> splitData(QString rowData, char seperator);
+        static QString getDateTimeStr();
 };
 
 

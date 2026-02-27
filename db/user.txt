@@ -1,1 +1,1 @@
-id|userid|username|password|salt|balance
+id|userid|prefix|firstname|lastname|tel|ctzId|gender|password|salt|balance

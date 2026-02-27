@@ -1,16 +1,16 @@
 #include"user.h"
 #include "transaction.h"
+#include "../helper.h"
 #include<QFile>
 #include<QTextStream>
 #include<QDebug>
 #include<QRandomGenerator>
-#include<random>
-#include<stdio.h>
-#include<iostream>
-#include<fstream>
-#include<string>
-#include<vector>
-#include<ctime>
+#include <QDir>
+// #include<random>
+// #include<stdio.h>
+// #include<iostream>
+#include<QVector>
+// #include<ctime>
 
 void User::loadDataFromFile(){
     counter = 0;
@@ -29,7 +29,7 @@ void User::loadDataFromFile(){
             continue;
         }
         if (skipHeader) { skipHeader = false; continue; }
-        vector<QString> data = splitData(line,'|');
+        QVector<QString> data = Helper::splitData(line,'|');
         User u;
         u.id = data[0].toInt();
         u.userid = data[1];
@@ -42,7 +42,7 @@ void User::loadDataFromFile(){
     readfile.close();
 }
 
-bool User::Bank::topupFunc(QString accId, QString selectedBank, double amount) {
+bool Transaction::topupFunc(QString accId, QString selectedBank, double amount) {
     if (selectedBank != "Bank A" && selectedBank != "Bank B") {
         return false;
     }
@@ -65,47 +65,76 @@ QString Transaction::withdrawFunc(double amount) {
     return otpStr.toStdString();
 }
 
-void Transaction::transfer(QString inputuserid, double amount){
+void Transaction::transfer(const QString& inputuserid, double amount)
+{
+    if (amount <= 0) {
+        qWarning() << "Invalid amount";
+        return;
+    }
 
     User temp;
     temp.loadDataFromFile();
-    bool check = false, isAffort = true;
-    for (int i=0;i<temp.allUsers.size();i++){
-        if(temp.allUsers[i].userid == inputuserid){
-            check = true;
-            if(loginUser.balance < amount){
-                // cout << "Not enough money\n"
-                isAffort = false;
-                break;
-            }
-            else{
-                temp.allUsers[i].balance += amount;
-                loginUser.balance -= amount;
-                temp.reloadLoginUser();
-                temp.rewritetxt();
-                break;
-            }
+
+    // ---------- หา user ปลายทาง ----------
+    int targetIndex = -1;
+    for (int i = 0; i < temp.allUsers.size(); ++i) {
+        if (temp.allUsers[i].userid == inputuserid) {
+            targetIndex = i;
+            break;
         }
     }
-    if(!check){
-        cout << "Wrong Userid\n";
-    } else if (!isAffort) cout << "Not enough money"; 
-    else {
-        ifstream transactionFile("../database/demo_transaction.txt");
 
-        string line;
-        int counter = 0;
-        while (getline(transactionFile,line)){
-            counter++;
-        }
-
-        transactionFile.close();
-        ofstream transactionFileOut("../database/demo_transaction.txt", ios::app);
-        int id = counter;
-        string dt = getDateTimeStr();
-
-        transactionFileOut << id << '|' << dt << '|' << "transfer" << '|' << amount << '|' << loginUser.userid << '|' << inputuserid << endl;
-
-        transactionFileOut.close();
+    if (targetIndex == -1) {
+        qWarning() << "Wrong Userid";
+        return;
     }
+
+    // ---------- เช็คเงิน ----------
+    if (loginUser.balance < amount) {
+        qWarning() << "Not enough money";
+        return;
+    }
+
+    // ---------- ทำรายการ ----------
+    temp.allUsers[targetIndex].balance += amount;
+    loginUser.balance -= amount;
+
+    temp.reloadLoginUser();
+    temp.rewritetxt();
+
+    // ---------- บันทึก transaction ----------
+    QString path = "../db/transaction.txt";
+    QFile file(path);
+
+    int id = 0;
+
+    if (file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            in.readLine();
+            ++id;
+        }
+        file.close();
+    }
+
+    if (!file.open(QIODevice::Append | QIODevice::Text)) {
+        qWarning() << "Cannot open transaction file";
+        return;
+    }
+
+    QTextStream out(&file);
+
+    QString dt = Helper::getDateTimeStr();
+
+    out << id << '|'
+        << dt << '|'
+        << "transfer" << '|'
+        << QString::number(amount, 'f', 2) << '|'
+        << loginUser.userid << '|'
+        << inputuserid
+        << '\n';
+
+    file.close();
+
+    qDebug() << "Transfer success";
 }
