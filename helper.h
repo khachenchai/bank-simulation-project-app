@@ -2,12 +2,13 @@
 #define HELPER_H
 
 #include <qcontainerfwd.h>
-#include <vector>
 #include <QString>
 
 class Helper {
     public:
         static bool checkIsNumerial(const QString&);
+        static QString getUserDBPath();
+        static QString getTransactionDBPath();
 };
 
 // bool Helper::checkIsNumerial(const QString &text) {

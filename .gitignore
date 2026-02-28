@@ -30,3 +30,4 @@ cmake_install.cmake
 # Windows
 *.pdb
 *.ilk
+.vscode/c_cpp_properties.json
