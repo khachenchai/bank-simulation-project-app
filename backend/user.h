@@ -30,12 +30,16 @@ class User {
              const QString& salt,
              double balance);
 
-        void loadDataFromFile();
+        static void loadDataFromFile();
         bool registerFunc(QString prefix, QString firstname, QString lastname, QString tel, QString ctzId, QString gender, QString password, double balance);
         bool login(QString inputusername,QString inputpassword);
         bool verifyPassword(const QString& inputPassword);
-        void rewritetxt();
+        static void rewritetxt();
         QString withdrawFunc(double amount);
+        static int findUserIndexByUserId(const QString& userId);
+        static int findCurrentUserIndex();
+        static double getBalanceByIndex(int index);
+        static void addBalance(int index, double amount);
 
         // -- Getter Func --
         int getId() const {return id;}
@@ -46,17 +50,19 @@ class User {
         QString getGender() const {return gender;}
         QString getCtzId() const {return ctzId;}
         double getBalance() const {return balance;}
+        static void updateBalance(int index, double newBalance);
 
         void setBalance(double b) {balance = b;}
 
         // -- session
         static User& currentUser();
-        static bool isLoggedin();
+        static bool isLoggedIn();
         static void logout();
 
     private:
         static User m_currentUser;
         static bool m_loginStatus;
+        static QVector<User> allUsers;
 
         // class Func {
         //     public:

@@ -4,6 +4,8 @@
 #include <QVector>
 #include <QString>
 #include <QDateTime>
+#include <QCoreApplication>
+#include <QDir>
 
 bool Helper::checkIsNumerial(const QString& text) {
     bool isNumerial = false;
@@ -50,7 +52,7 @@ QVector<QString> Helper::splitData(QString rowData, char seperator) {
 
 
 
-QString generateOTP() {
+QString Helper::generateOTP() {
     QString otp;
 
     for (int i = 0; i < 6; ++i) {
@@ -59,4 +61,29 @@ QString generateOTP() {
     }
 
     return otp;
+}
+QString Helper::getUserDBPath() {
+    QString basePath = QCoreApplication::applicationDirPath();
+    QString dbPath = basePath;
+
+    QDir dir;
+    if (!dir.exists(dbPath)) {
+        dir.mkpath(dbPath);
+    }
+
+    QString filePath = dbPath + "/../../db/user.txt";
+    return filePath;
+}
+
+QString Helper::getTransactionDBPath() {
+    QString basePath = QCoreApplication::applicationDirPath();
+    QString dbPath = basePath;
+
+    QDir dir;
+    if (!dir.exists(dbPath)) {
+        dir.mkpath(dbPath);
+    }
+
+    QString filePath = dbPath + "/../../db/transaction.txt";
+    return filePath;
 }

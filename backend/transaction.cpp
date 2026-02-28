@@ -6,82 +6,76 @@
 #include<QDebug>
 #include<QRandomGenerator>
 #include <QDir>
-// #include<random>
-// #include<stdio.h>
-// #include<iostream>
 #include<QVector>
-// #include<ctime>
 
-void User::loadDataFromFile(){
-    counter = 0;
-    allUsers.clear();
-    QFile readfile("../db/user.txt");
-    if (!readfile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "Could not open file";
-        return;
-    }
-    QTextStream in(&readfile);
-    QString line;
-    bool skipHeader = true;
-    while (in.readLineInto(&line)){
-        counter++;
-        if (line == "" || line == "\r"){
-            continue;
-        }
-        if (skipHeader) { skipHeader = false; continue; }
-        QVector<QString> data = Helper::splitData(line,'|');
-        User u;
-        u.id = data[0].toInt();
-        u.userid = data[1];
-        u.username = data[2];
-        u.password = data[3];
-        u.salt = data[4];
-        u.balance = data[5].toDouble();
-        allUsers.push_back(u);
-    }
-    readfile.close();
-}
-
-bool Transaction::topupFunc(QString accId, QString selectedBank, double amount) {
-    if (selectedBank != "Bank A" && selectedBank != "Bank B") {
+bool Transaction::topupFunc(QString selectedBank, double amount)
+{
+    if (!User::isLoggedIn())
         return false;
-    }
 
-    loginUser.balance += amount;
-    
-    User::reloadLoginUser();
+    User::loadDataFromFile();
+
+    int index = User::findCurrentUserIndex();
+    if (index == -1)
+        return false;
+
+    double newBalance =
+        User::currentUser().getBalance() + amount;
+
+    User::updateBalance(index, newBalance);
+
     User::rewritetxt();
+
     return true;
 }
 
-QString Transaction::withdrawFunc(double amount) {
-    if (amount > loginUser.balance) {
-        return "";
-    }
-    QString otpStr = generateOTP();
-    loginUser.balance -= amount;
-    reloadLoginUser();
-    rewritetxt();
-    return otpStr.toStdString();
+QString Transaction::withdrawFunc(double amount)
+{
+    if (!User::isLoggedIn()) return "";
+
+    if (amount <= 0) return "";
+
+    User::loadDataFromFile();
+
+    int index = User::findCurrentUserIndex();
+    if (index == -1) return "";
+
+    double currentBalance =
+        User::currentUser().getBalance();
+
+    if (amount > currentBalance) return "";
+
+    QString otpStr = Helper::generateOTP();
+
+    double newBalance = currentBalance - amount;
+
+    User::updateBalance(index, newBalance);
+
+    User::rewritetxt();
+
+    return otpStr;
 }
 
-void Transaction::transfer(const QString& inputuserid, double amount)
-{
+void Transaction::transfer(const QString& inputuserid, double amount) {
+
+    if (!User::isLoggedIn()) {
+        qWarning() << "Not logged in";
+        return;
+    }
+
     if (amount <= 0) {
         qWarning() << "Invalid amount";
         return;
     }
 
-    User temp;
-    temp.loadDataFromFile();
+    User::loadDataFromFile();
 
-    // ---------- หา user ปลายทาง ----------
-    int targetIndex = -1;
-    for (int i = 0; i < temp.allUsers.size(); ++i) {
-        if (temp.allUsers[i].userid == inputuserid) {
-            targetIndex = i;
-            break;
-        }
+    int senderIndex = User::findCurrentUserIndex();
+    int targetIndex = User::findUserIndexByUserId(inputuserid);
+
+    if (senderIndex == -1) {
+        qWarning() << "Sender not found";
+        return;
     }
 
     if (targetIndex == -1) {
@@ -89,26 +83,32 @@ void Transaction::transfer(const QString& inputuserid, double amount)
         return;
     }
 
-    // ---------- เช็คเงิน ----------
-    if (loginUser.balance < amount) {
+    double senderBalance = User::currentUser().getBalance();
+
+    if (senderBalance < amount) {
         qWarning() << "Not enough money";
         return;
     }
 
-    // ---------- ทำรายการ ----------
-    temp.allUsers[targetIndex].balance += amount;
-    loginUser.balance -= amount;
+    // ===== ทำรายการ =====
+    double newSenderBalance = senderBalance - amount;
+    double newTargetBalance =
+        User::getBalanceByIndex(targetIndex) + amount;
 
-    temp.reloadLoginUser();
-    temp.rewritetxt();
+    User::updateBalance(senderIndex, newSenderBalance);
+    User::updateBalance(targetIndex, newTargetBalance);
 
-    // ---------- บันทึก transaction ----------
+    User::rewritetxt();
+
+    // ===== บันทึก transaction =====
     QString path = "../db/transaction.txt";
     QFile file(path);
 
     int id = 0;
 
-    if (file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    if (file.exists() &&
+        file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+
         QTextStream in(&file);
         while (!in.atEnd()) {
             in.readLine();
@@ -123,14 +123,13 @@ void Transaction::transfer(const QString& inputuserid, double amount)
     }
 
     QTextStream out(&file);
-
     QString dt = Helper::getDateTimeStr();
 
     out << id << '|'
         << dt << '|'
         << "transfer" << '|'
         << QString::number(amount, 'f', 2) << '|'
-        << loginUser.userid << '|'
+        << User::currentUser().getUserId() << '|'
         << inputuserid
         << '\n';
 
