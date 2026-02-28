@@ -33,7 +33,7 @@ class User {
         static void loadDataFromFile();
         bool registerFunc(QString prefix, QString firstname, QString lastname, QString tel, QString ctzId, QString gender, QString password, double balance);
         bool login(QString inputusername,QString inputpassword);
-        bool verifyPassword(const QString& inputPassword);
+        bool verifyPassword(const QString& inputPassword, const QString& salt);
         static void rewritetxt();
         QString withdrawFunc(double amount);
         static int findUserIndexByUserId(const QString& userId);
