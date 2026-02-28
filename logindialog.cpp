@@ -78,7 +78,7 @@ void LoginDialog::on_LoginBtn_clicked()
     } else {
         // login func [Backend Func Here]
         User user;
-        qDebug() << "User-before: " << user.currentUser().getFullname();
+        // qDebug() << "User-before: " << user.currentUser().getFullname();
         bool isLoginSuccess = user.login(
             ctzId, password
             );
