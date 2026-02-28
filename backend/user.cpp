@@ -146,7 +146,7 @@ bool User::registerFunc(QString prefix, QString firstname, QString lastname, QSt
     return true;
 }
 
-bool User::verifyPassword(const QString& inputPassword) {
+bool User::verifyPassword(const QString& inputPassword, const QString& salt) {
     QString hashPass = Helper::hashPassword(inputPassword, salt);
     return hashPass == password;
 }
