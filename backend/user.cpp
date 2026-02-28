@@ -152,10 +152,11 @@ bool User::verifyPassword(const QString& inputPassword, const QString& salt) {
 }
 
 bool User::login(QString inputCtzId, QString inputPassword){
+    m_loginStatus = false;
     loadDataFromFile();
     for (int i=0;i<allUsers.size();i++){
         if(allUsers[i].getCtzId() == inputCtzId){
-            if(allUsers[i].verifyPassword(inputPassword)){
+            if(allUsers[i].verifyPassword(inputPassword, allUsers[i].salt)){
                 qDebug() << "Login susscess";
                 // session logic here
                 m_currentUser = allUsers[i];
