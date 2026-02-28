@@ -1,11 +1,12 @@
 #include "logindialog.h"
 #include "ui_logindialog.h"
 #include "registerdialog.h"
-#include <iostream>
 #include <QMessageBox>
 #include <QWidget>
 #include "helper.h"
-using namespace std;
+#include "backend/user.h"
+#include <QVector>
+#include <QDebug>
 
 LoginDialog::LoginDialog(QWidget *parent)
     : QDialog(parent)
@@ -58,7 +59,8 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::on_LoginBtn_clicked()
 {
-    vector<QString> errors;
+
+    QVector<QString> errors;
     QString ctzId = ui->CtzIdEdit->text();
     QString password = ui->PasswordEdit->text();
 
@@ -75,8 +77,19 @@ void LoginDialog::on_LoginBtn_clicked()
         QMessageBox::warning(this, "Mhee Bank", errorsText);
     } else {
         // login func [Backend Func Here]
+        User user;
+        // qDebug() << "User-before: " << user.currentUser().getFullname();
+        bool isLoginSuccess = user.login(
+            ctzId, password
+            );
 
-        cout << "Login Btn Clicked";
+        if (isLoginSuccess == false) {
+            QMessageBox::warning(this, "Mhee Bank", "เข้าสู่ระบบไม่สำเร็จ");
+            return;
+        }
+
+        // QMessageBox::information(this, "Mhee Bank", "เข้าสู่ระบบสำเร็จ");
+        qDebug() << "User-current: " << user.currentUser().getFullname();
         accept();
     }
 
