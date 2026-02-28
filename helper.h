@@ -2,6 +2,7 @@
 #define HELPER_H
 
 #include <QVector>
+#include <qcontainerfwd.h>
 #include <QString>
 
 class Helper {
@@ -12,6 +13,8 @@ class Helper {
         static QVector<QString> splitData(QString rowData, char seperator);
         static QString getDateTimeStr();
         static QString generateOTP();
+        static QString getUserDBPath();
+        static QString getTransactionDBPath();
 };
 
 
