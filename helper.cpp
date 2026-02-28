@@ -61,6 +61,7 @@ QString Helper::generateOTP() {
     }
 
     return otp;
+}
 QString Helper::getUserDBPath() {
     QString basePath = QCoreApplication::applicationDirPath();
     QString dbPath = basePath;
