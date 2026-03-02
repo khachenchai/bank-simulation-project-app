@@ -1,3 +1,4 @@
+#include "backend/user.h"
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QGraphicsDropShadowEffect>
@@ -17,6 +18,12 @@ MainWindow::MainWindow(QWidget *parent)
     shadow->setColor(QColor(0, 158, 42, 80));
 
     ui->BalanceLabel->setGraphicsEffect(shadow);
+
+    User user;
+
+    QString fname = user.currentUser().getFirstname();
+
+    ui->NameTitle->setText("สวัสดี, " + fname);
 
     TransactionItem *item = new TransactionItem(this);
     TransactionItem *item2 = new TransactionItem(this);
