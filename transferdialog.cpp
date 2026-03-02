@@ -7,9 +7,16 @@ TransferDialog::TransferDialog(QWidget *parent)
 {
     ui->setupUi(this);
 
+    QString userId = user.currentUser().getUserId();
+    ui->UserIdLabel->setText(userId);
+
+    double amount = user.currentUser().getBalance();
+    ui->BalanceLabel->setText(QString::number(amount));
+
 }
 
 TransferDialog::~TransferDialog()
 {
     delete ui;
 }
+
