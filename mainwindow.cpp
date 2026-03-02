@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent)
     QString userId = user.currentUser().getUserId();
     ui->UserIdLabel->setText("หมายเลขบัญชี : " + userId);
 
+    double amount = user.currentUser().getBalance();
+    ui->BalanceLabel->setText(QString::number(amount));
+
 
     TransactionItem *item = new TransactionItem(this);
     TransactionItem *item2 = new TransactionItem(this);
