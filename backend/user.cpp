@@ -42,7 +42,7 @@ void User::loadDataFromFile(){
     counter = 0;
     allUsers.clear();
     qDebug() << QDir::currentPath();
-    QFile readfile("db/user.txt");
+    QFile readfile(Helper::getUserDBPath());
     if (!readfile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qWarning() << "Could not open file";
         return;
@@ -51,12 +51,20 @@ void User::loadDataFromFile(){
     QString line;
     bool skipHeader = true;
     while (in.readLineInto(&line)){
-        counter++;
-        if (line == "" || line == "\r"){
+
+        line = line.trimmed();
+        qDebug() << line;
+
+        if (line.isEmpty()) continue;
+        if (skipHeader) { skipHeader = false; continue; }
+
+        QStringList data = line.split('|');
+
+        if (data.size() < 11) {
+            qDebug() << "Invalid row:" << line;
             continue;
         }
-        if (skipHeader) { skipHeader = false; continue; }
-        QVector<QString> data = Helper::splitData(line,'|');
+
         User u;
         u.id = data[0].toInt();
         u.userid = data[1];
@@ -69,6 +77,9 @@ void User::loadDataFromFile(){
         u.password = data[8];
         u.salt = data[9];
         u.balance = data[10].toDouble();
+
+        qDebug() << "Loaded ctzId:" << u.ctzId;
+
         allUsers.push_back(u);
     }
     readfile.close();
@@ -155,6 +166,7 @@ bool User::login(QString inputCtzId, QString inputPassword){
     m_loginStatus = false;
     loadDataFromFile();
     for (int i=0;i<allUsers.size();i++){
+        qDebug() << allUsers[i].getCtzId();
         if(allUsers[i].getCtzId() == inputCtzId){
             if(allUsers[i].verifyPassword(inputPassword, allUsers[i].salt)){
                 qDebug() << "Login susscess";
