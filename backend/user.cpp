@@ -85,12 +85,12 @@ bool User::registerFunc(QString prefix, QString firstname, QString lastname, QSt
 
     int newId = allUsers.isEmpty() ? 1 : allUsers.last().getId() + 1;
 
-    QString userId = QString::number(rand() % 900000 + 100000);
+    QString userId = QString::number(rand() % 90000000 + 10000000);
     bool isDuplicate;
 
     do {
         isDuplicate = false;
-        userId = QString::number(rand() % 900000 + 100000);
+        userId = QString::number(rand() % 90000000 + 10000000);
 
         for (const User& user : std::as_const(allUsers)) {
             if (user.userid == userId) {
