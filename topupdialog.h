@@ -18,6 +18,17 @@ public:
 private slots:
     void on_ConfirmBtn_clicked();
 
+    void on_Top100_clicked();
+
+    void on_Top300_clicked();
+
+    void on_Top500_clicked();
+
+    void on_Top1000_clicked();
+
+    void on_Top2000_clicked();
+    void resetTopUpButtons();
+
 private:
     Ui::TopUpDialog *ui;
 };

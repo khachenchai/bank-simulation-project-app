@@ -258,7 +258,7 @@ QWidget::hover {
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="amountEdit">
      <property name="font">
       <font>
        <family>Kanit</family>
@@ -294,7 +294,7 @@ border: 2px solid #BCBCBC;
        <number>4</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="Top100">
         <property name="font">
          <font>
           <family>Kanit</family>
@@ -316,7 +316,7 @@ color: #009E2A;
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="Top300">
         <property name="font">
          <font>
           <pointsize>-1</pointsize>
@@ -338,7 +338,7 @@ color: #009E2A;
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="Top500">
         <property name="font">
          <font>
           <pointsize>-1</pointsize>
@@ -360,7 +360,7 @@ color: #009E2A;
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="Top1000">
         <property name="font">
          <font>
           <pointsize>-1</pointsize>
@@ -382,7 +382,7 @@ color: #009E2A;
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="Top2000">
         <property name="font">
          <font>
           <pointsize>-1</pointsize>
