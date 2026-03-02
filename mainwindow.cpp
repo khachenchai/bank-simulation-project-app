@@ -24,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
     QString fname = user.currentUser().getFirstname();
     ui->NameTitle->setText("สวัสดี, " + fname);
 
-    QString userID = user.currenUser().getUserID();
-    ui->UserIDLabel->setText("หมายเลขบัญชี : " + userID);
+    QString userID = user.currentUser().getUserID();
+    ui->UserIdLabel->setText("หมายเลขบัญชี : " + userID);
 
 
     TransactionItem *item = new TransactionItem(this);
