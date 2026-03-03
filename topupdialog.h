@@ -28,6 +28,7 @@ private slots:
 
     void on_Top2000_clicked();
     void resetTopUpButtons();
+    void resetBankButtons();
 
     void on_BankABtn_clicked();
 

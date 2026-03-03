@@ -16,7 +16,7 @@ public:
         TopUp,
         Transfer
     };
-    explicit ConfirmTransactionDialog(TransactionType type, QWidget *parent = nullptr);
+    explicit ConfirmTransactionDialog(TransactionType type, QString fromBank, double balance, QWidget *parent = nullptr);
     ~ConfirmTransactionDialog();
 
 private:
