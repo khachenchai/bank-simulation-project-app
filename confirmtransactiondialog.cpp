@@ -2,6 +2,7 @@
 #include "ui_confirmtransactiondialog.h"
 #include <QDebug>
 #include "backend/user.h"
+#include "backend/transaction.h"
 
 ConfirmTransactionDialog::ConfirmTransactionDialog(TransactionType type, QString fromBank, double balance, QWidget *parent)
     : QDialog(parent)
@@ -41,8 +42,14 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
     User user = User::currentUser();
     if (user.verifyPassword(passwordInput, user.getSalt())) {
         qDebug() << "Salt: " << user.getSalt();
-        qDebug() << "Success";
+        
 
+        bool isTopupSuccess = Transaction::topupFunc(m_frombank , m_balance);
+        if (!isTopupSuccess) {
+            qDebug() << "Sth is Failed";
+        }
+
+        qDebug() << "Success";
 
     } else {
         qDebug() << "Failed";
