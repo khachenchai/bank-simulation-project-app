@@ -29,6 +29,10 @@ private slots:
     void on_Top2000_clicked();
     void resetTopUpButtons();
 
+    void on_BankABtn_clicked();
+
+    void on_BankBBtn_clicked();
+
 private:
     Ui::TopUpDialog *ui;
 };

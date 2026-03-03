@@ -73,3 +73,15 @@ void TopUpDialog::on_Top2000_clicked()
     ui->Top2000->setStyleSheet(selectedStyle);
 }
 
+
+void TopUpDialog::on_BankABtn_clicked()
+{
+
+}
+
+
+void TopUpDialog::on_BankBBtn_clicked()
+{
+
+}
+
