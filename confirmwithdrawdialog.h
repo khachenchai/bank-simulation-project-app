@@ -12,11 +12,16 @@ class ConfirmWithdrawDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ConfirmWithdrawDialog(QWidget *parent = nullptr);
+    explicit ConfirmWithdrawDialog(QString otpStr, double balance, QWidget *parent = nullptr);
     ~ConfirmWithdrawDialog();
+
+private slots:
+    void on_OpenATMBtn_clicked();
 
 private:
     Ui::ConfirmWithdrawDialog *ui;
+    QString m_otpStr;
+    double m_balance;
 };
 
 #endif // CONFIRMWITHDRAWDIALOG_H

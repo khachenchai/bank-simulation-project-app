@@ -42,6 +42,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         transferdialog.h transferdialog.cpp transferdialog.ui
         confirmwithdrawdialog.h confirmwithdrawdialog.cpp confirmwithdrawdialog.ui
         helper.cpp
+        simulatedatmdialog.h simulatedatmdialog.cpp simulatedatmdialog.ui
 
         # logindialog.h logindialog.cpp logindialog.ui
     )

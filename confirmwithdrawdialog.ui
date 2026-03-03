@@ -121,7 +121,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QPushButton" name="ConfirmBtn">
+    <widget class="QPushButton" name="OpenATMBtn">
      <property name="font">
       <font>
        <family>Kanit</family>
@@ -142,7 +142,7 @@ width: 200px;
 </string>
      </property>
      <property name="text">
-      <string>(กดเมื่อกรอกแล้ว)</string>
+      <string>(เปิด ATM จำลอง)</string>
      </property>
     </widget>
    </item>

@@ -14,7 +14,8 @@ class ConfirmTransactionDialog : public QDialog
 public:
     enum class TransactionType {
         TopUp,
-        Transfer
+        Transfer,
+        Withdraw
     };
     explicit ConfirmTransactionDialog(TransactionType type, QString fromBank, QString toBank, QString targetUserId, double balance, QWidget *parent = nullptr);
     ~ConfirmTransactionDialog();

@@ -4,6 +4,9 @@
 #include "backend/user.h"
 #include "backend/transaction.h"
 #include <QMessageBox>
+#include "confirmwithdrawdialog.h"
+#include "helper.h"
+#include "simulatedatmdialog.h"
 
 ConfirmTransactionDialog::ConfirmTransactionDialog(TransactionType type, QString fromBank, QString toBank, QString targetUserId, double balance, QWidget *parent)
     : QDialog(parent)
@@ -28,6 +31,8 @@ void ConfirmTransactionDialog::setupUIByType() {
         ui->Title->setText("ยืนยันการเติมเงิน");
         ui->ToTitle->hide();
         ui->ToLineEdit->hide();
+        ui->InputBalanceEdit->hide();
+        ui->InputBalanceTitle->hide();
         ui->FromLineEdit->setText(m_fromBank);
         ui->ToLineEdit->setText("Mhee Bank");
         ui->BalanceText->setText(QString::number(m_balance, 'f', 2) + " บาท");
@@ -36,11 +41,22 @@ void ConfirmTransactionDialog::setupUIByType() {
         ui->Title->setText("ยืนยันการโอนเงิน");
         ui->ToTitle->show();
         ui->ToLineEdit->show();
+        ui->InputBalanceEdit->hide();
+        ui->InputBalanceTitle->hide();
         ui->FromLineEdit->setText(m_fromBank + " - " + User::currentUser().getFullname());
         ui->ToLineEdit->setText(m_toBank == "Mhee Bank" ? m_toBank + " - " + User::getFullnameByUserId(m_targetUserId) : m_toBank);
         ui->BalanceText->setText(QString::number(m_balance, 'f', 2) + " บาท");
-
-
+    } else if (m_type == TransactionType::Withdraw) {
+        ui->Title->setText("ยืนยันการถอนเงิน");
+        ui->ToTitle->hide();
+        ui->ToLineEdit->hide();
+        ui->InputBalanceEdit->show();
+        ui->InputBalanceTitle->show();
+        ui->FromLineEdit->hide();
+        ui->ToLineEdit->hide();
+        ui->BalanceText->hide();
+        ui->FromTitle->hide();
+        ui->BalanceLabel->hide();
     }
 }
 
@@ -111,6 +127,11 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
             );
 
         accept();
+    } else if (m_type == TransactionType::Withdraw) {
+        QString otpStr = Helper::generateOTP();
+
+        ConfirmWithdrawDialog dlg(otpStr, 0, this);
+        dlg.exec();
     }
 }
 

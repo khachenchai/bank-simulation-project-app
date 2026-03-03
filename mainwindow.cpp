@@ -6,6 +6,9 @@
 #include "topupdialog.h"
 #include "transferdialog.h"
 #include "backend/transaction.h"
+#include "confirmtransactiondialog.h"
+
+using TransactionType = ConfirmTransactionDialog::TransactionType;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -163,6 +166,14 @@ void MainWindow::on_TransferBtn_clicked()
 
 void MainWindow::on_WithdrawBtn_clicked()
 {
+    ConfirmTransactionDialog dlg(
+        TransactionType::Withdraw,
+        "Mhee Bank",
+        "",
+        "",
+        0
+        );
 
+    dlg.exec();
 }
 
