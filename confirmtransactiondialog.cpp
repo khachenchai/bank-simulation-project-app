@@ -3,7 +3,10 @@
 
 ConfirmTransactionDialog::ConfirmTransactionDialog(TransactionType type, QString fromBank, double balance, QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::ConfirmTransactionDialog)
+    , ui(new Ui::ConfirmTransactionDialog),
+    m_type(type),
+    m_fromBank(fromBank),
+    m_balance(balance)
 {
     ui->setupUi(this);
     setupUIByType();
@@ -19,9 +22,9 @@ void ConfirmTransactionDialog::setupUIByType() {
         ui->Title->setText("ยืนยันการเติมเงิน");
         ui->ToTitle->hide();
         ui->ToLineEdit->hide();
-        ui->FromLineEdit->setText(fromBank);
+        ui->FromLineEdit->setText(m_fromBank);
         ui->ToLineEdit->setText("Mhee Bank");
-        ui->BalanceText->setText(QString::number(balance, 'f', 2) + " บาท");
+        ui->BalanceText->setText(QString::number(m_balance, 'f', 2) + " บาท");
 
     } else if (m_type == TransactionType::Transfer) {
         ui->Title->setText("ยืนยันการโอนเงิน");

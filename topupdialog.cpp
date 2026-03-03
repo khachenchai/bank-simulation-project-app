@@ -19,7 +19,7 @@ TopUpDialog::~TopUpDialog()
 
 void TopUpDialog::on_ConfirmBtn_clicked()
 {
-    QString balanceText = ui->amountEdit->Text();
+    QString balanceText = ui->amountEdit->text();
     double balance = balanceText.toDouble();
     ConfirmTransactionDialog dlg(TransactionType::TopUp, selectedBank, balance, this);
     dlg.exec();

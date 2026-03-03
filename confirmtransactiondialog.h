@@ -21,6 +21,8 @@ public:
 
 private:
     TransactionType m_type;
+    QString m_fromBank;
+    double m_balance;
     void setupUIByType();
     Ui::ConfirmTransactionDialog *ui;
 };
