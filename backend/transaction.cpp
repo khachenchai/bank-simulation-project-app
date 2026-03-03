@@ -26,9 +26,50 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
 
     User::rewritetxt();
 
+    // ===== บันทึก transaction =====
+    QString path = Helper::getTransactionDBPath();
+    QFile file(path);
+
+    int id = 0;
+
+    if (file.exists() &&
+        file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            in.readLine();
+            ++id;
+        }
+        file.close();
+    }
+
+    if (!file.open(QIODevice::Append | QIODevice::Text)) {
+        qWarning() << "Cannot open transaction file";
+        return false;
+    }
+
+    QTextStream out(&file);
+    QString dt = Helper::getDateTimeStr();
+    QString userId = User::currentUser().getUserId();
+
+    out << id << '|'
+        << dt << '|'
+        << "topup" << '|'
+        << QString::number(amount, 'f', 2) << '|'
+        << selectedBank << '|'
+        << "Mhee Bank" << '|' << '|'
+        << User::currentUser().getUserId() << '|'
+        << '\n';
+
+    file.close();
+
+    qDebug() << "Transfer success";
+
     return true;
 }
 
+
+// ต้องแก้
 QString Transaction::withdrawFunc(double amount)
 {
     if (!User::isLoggedIn()) return "";
@@ -101,7 +142,7 @@ void Transaction::transfer(const QString& inputuserid, double amount) {
     User::rewritetxt();
 
     // ===== บันทึก transaction =====
-    QString path = "../db/transaction.txt";
+    QString path = Helper::getTransactionDBPath();
     QFile file(path);
 
     int id = 0;

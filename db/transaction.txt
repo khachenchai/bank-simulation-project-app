@@ -1,0 +1,1 @@
+id|date_time|transaction|balance|from_bank|to_bank|fromId|toId

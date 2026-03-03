@@ -86,6 +86,7 @@ void User::loadDataFromFile(){
 }
 bool User::registerFunc(QString prefix, QString firstname, QString lastname, QString tel, QString ctzId, QString gender, QString password, double balance){
     // bool skipHeader = true;
+    loadDataFromFile();
 
     for (int i = 0; i < allUsers.size(); i++) {
         if (allUsers[i].getCtzId() == ctzId) {
