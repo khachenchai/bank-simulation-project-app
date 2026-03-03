@@ -68,6 +68,8 @@ void MainWindow::on_TopupBtn_clicked()
 void MainWindow::on_TransferBtn_clicked()
 {
     TransferDialog dlg(this);
-    dlg.exec();
+    if (dlg.exec() == QDialog::Accepted) {
+        refreshBalance();
+    }
 }
 

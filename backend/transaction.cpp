@@ -111,16 +111,19 @@ bool Transaction::transferFunc(const QString& inputuserid, QString toBank, doubl
     User::loadDataFromFile();
 
     int senderIndex = User::findCurrentUserIndex();
-    int targetIndex = User::findUserIndexByUserId(inputuserid);
+    int targetIndex = -1;
 
     if (senderIndex == -1) {
         qWarning() << "Sender not found";
         return false;
     }
 
-    if (targetIndex == -1) {
-        qWarning() << "Wrong Userid";
-        return false;
+    if (toBank == "Mhee Bank") {
+        targetIndex = User::findUserIndexByUserId(inputuserid);
+        if (targetIndex == -1) {
+            qWarning() << "Wrong Userid";
+            return false;
+        }
     }
 
     double senderBalance = User::currentUser().getBalance();
@@ -177,6 +180,8 @@ bool Transaction::transferFunc(const QString& inputuserid, QString toBank, doubl
         << dt << '|'
         << "transfer" << '|'
         << QString::number(amount, 'f', 2) << '|'
+        << "Mhee Bank" << '|'
+        << toBank << '|'
         << User::currentUser().getUserId() << '|'
         << inputuserid
         << '\n';

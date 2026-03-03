@@ -45,6 +45,7 @@ class User {
         int getId() const {return id;}
         QString getUserId() const {return userid;}
         QString getFullname() const {return prefix+firstname+' '+lastname;}
+        static QString getFullnameByUserId(const QString& userId);
         QString getFirstname() const {return firstname;}
         QString getTel() const {return tel;}
         QString getGender() const {return gender;}

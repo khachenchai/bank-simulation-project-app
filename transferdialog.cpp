@@ -1,6 +1,9 @@
 #include "transferdialog.h"
 #include "ui_transferdialog.h"
 #include "backend/user.h"
+#include "confirmtransactiondialog.h"
+
+using TransactionType = ConfirmTransactionDialog::TransactionType;
 
 TransferDialog::TransferDialog(QWidget *parent)
     : QDialog(parent)
@@ -26,7 +29,7 @@ TransferDialog::~TransferDialog()
 
 void TransferDialog::on_SubmitBtn_clicked()
 {
-    QString selectBank = ui->BankCombo->text();
+    QString selectBank = ui->BankCombo->currentText();
     QString recieverId = ui->UserIdEdit->text();
     QString balanceText = ui->BalanceEdit->text();
     ConfirmTransactionDialog dlg(
@@ -37,7 +40,8 @@ void TransferDialog::on_SubmitBtn_clicked()
         balanceText.toDouble()
     );
 
-    dlg.exec();
-
+    if (dlg.exec() == QDialog::Accepted) {
+        accept();
+    }
 }
 

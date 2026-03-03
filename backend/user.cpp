@@ -277,3 +277,12 @@ void User::addBalance(int index, double amount) {
         }
     }
 }
+
+QString User::getFullnameByUserId(const QString& userId) {
+    int index = findUserIndexByUserId(userId);
+
+    if (index != -1)
+        return allUsers[index].getFullname();
+
+    return "Unknown User";
+}

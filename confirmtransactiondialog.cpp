@@ -36,8 +36,8 @@ void ConfirmTransactionDialog::setupUIByType() {
         ui->Title->setText("ยืนยันการโอนเงิน");
         ui->ToTitle->show();
         ui->ToLineEdit->show();
-        ui->FromLineEdit->setText(m_fromBank);
-        ui->ToLineEdit->setText(m_toBank);
+        ui->FromLineEdit->setText(m_fromBank + " - " + User::currentUser().getFullname());
+        ui->ToLineEdit->setText(m_toBank == "Mhee Bank" ? m_toBank + " - " + User::getFullnameByUserId(m_targetUserId) : m_toBank);
         ui->BalanceText->setText(QString::number(m_balance, 'f', 2) + " บาท");
 
 
