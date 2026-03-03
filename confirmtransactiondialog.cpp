@@ -1,6 +1,7 @@
 #include "confirmtransactiondialog.h"
 #include "ui_confirmtransactiondialog.h"
 #include <QDebug>
+#include "backend/user.h"
 
 ConfirmTransactionDialog::ConfirmTransactionDialog(TransactionType type, QString fromBank, double balance, QWidget *parent)
     : QDialog(parent)
@@ -37,9 +38,12 @@ void ConfirmTransactionDialog::setupUIByType() {
 void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
 {
     QString passwordInput = ui->PasswordEdit->text();
-    User user;
-    if (user.verifyPassword(passwordInput, user.currentUser().getSalt())) {
+    User user = User::currentUser();
+    if (user.verifyPassword(passwordInput, user.getSalt())) {
+        qDebug() << "Salt: " << user.getSalt();
         qDebug() << "Success";
+
+
     } else {
         qDebug() << "Failed";
     }
