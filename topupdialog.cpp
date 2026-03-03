@@ -24,6 +24,8 @@ void TopUpDialog::on_ConfirmBtn_clicked() {
     ConfirmTransactionDialog dlg(
         TransactionType::TopUp,
         selectedBank,
+        "",
+        "",
         balance,
         this
         );
