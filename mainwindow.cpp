@@ -5,6 +5,7 @@
 #include "transactionitem.h"
 #include "topupdialog.h"
 #include "transferdialog.h"
+#include "backend/transaction.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -30,15 +31,54 @@ MainWindow::MainWindow(QWidget *parent)
     double amount = user.currentUser().getBalance();
     ui->BalanceLabel->setText(QString::number(amount, 'f', 2));
 
+    Transaction transaction;
 
-    TransactionItem *item = new TransactionItem(this);
-    TransactionItem *item2 = new TransactionItem(this);
+    QVector<TransactionRecord> list = transaction.getMyTransactions();
 
-    item->setData("โอน", 100, "1 พ.ค. 2569");
-    item2->setData("เติม", 100.53, "1 พ.ค. 2569");
+    QLayout *layout = ui->ScrollAreaOfHistory->layout();
 
-    ui->ScrollAreaOfHistory->layout()->addWidget(item);
-    ui->ScrollAreaOfHistory->layout()->addWidget(item2);
+    while (QLayoutItem* child = layout->takeAt(0)) {
+        delete child->widget();
+        delete child;
+    }
+
+    for (const auto& t : std::as_const(list)) {
+        TransactionItem *item = new TransactionItem(this);
+
+        QString title;
+
+        if (t.type == "transfer") {
+            if (t.fromId == User::currentUser().getUserId())
+                title = "โอน";
+            else
+                title = "ถอน";
+        } else if (t.type == "topup") {
+
+            title = "เติม";
+
+        } else {
+
+            title = t.type;
+        }
+
+        item->setData(
+            title,
+            t.amount,
+            t.dateTime
+            );
+
+        ui->ScrollAreaOfHistory->layout()->addWidget(item);
+    }
+
+
+    // TransactionItem *item = new TransactionItem(this);
+    // TransactionItem *item2 = new TransactionItem(this);
+
+    // item->setData("โอน", 100, "1 พ.ค. 2569");
+    // item2->setData("เติม", 100.53, "1 พ.ค. 2569");
+
+    // ui->ScrollAreaOfHistory->layout()->addWidget(item);
+    // ui->ScrollAreaOfHistory->layout()->addWidget(item2);
 }
 
 MainWindow::~MainWindow()
@@ -56,11 +96,57 @@ void MainWindow::refreshBalance()
     );
 }
 
+void MainWindow::refreshHistory()
+{
+    Transaction transaction;
+    QVector<TransactionRecord> list =
+        transaction.getMyTransactions();
+
+    QLayout *layout =
+        ui->ScrollAreaOfHistory->layout();
+
+    while (QLayoutItem* child = layout->takeAt(0)) {
+        delete child->widget();
+        delete child;
+    }
+
+    for (const auto& t : std::as_const(list)) {
+
+        TransactionItem *item =
+            new TransactionItem(this);
+
+        QString typeText;
+
+        if (t.type == "transfer") {
+
+            if (t.fromId == User::currentUser().getUserId())
+                typeText = "โอน";
+            else
+                typeText = "ถอน";
+
+        } else if (t.type == "topup") {
+
+            typeText = "เติม";
+
+        } else {
+
+            typeText = t.type;
+        }
+
+        item->setData(typeText,
+                      t.amount,
+                      t.dateTime);
+
+        layout->addWidget(item);
+    }
+}
+
 void MainWindow::on_TopupBtn_clicked()
 {
     TopUpDialog dlg(this);
     if (dlg.exec() == QDialog::Accepted) {
         refreshBalance();
+        refreshHistory();
     }
 }
 
@@ -70,6 +156,7 @@ void MainWindow::on_TransferBtn_clicked()
     TransferDialog dlg(this);
     if (dlg.exec() == QDialog::Accepted) {
         refreshBalance();
+        refreshHistory();
     }
 }
 

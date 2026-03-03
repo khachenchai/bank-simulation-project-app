@@ -191,3 +191,66 @@ bool Transaction::transferFunc(const QString& inputuserid, QString toBank, doubl
     qDebug() << "Transfer success";
     return true;
 }
+
+QVector<TransactionRecord> Transaction::getMyTransactions() {
+    QVector<TransactionRecord> myTransactions;
+
+    if (!User::isLoggedIn())
+        return myTransactions;
+
+    QString currentUserId =
+        User::currentUser().getUserId();
+
+    QFile file(Helper::getTransactionDBPath());
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "Cannot open transaction file";
+        return myTransactions;
+    }
+
+    QTextStream in(&file);
+
+    bool skipHeader = true;
+
+    while (!in.atEnd()) {
+
+        QString line = in.readLine().trimmed();
+
+        if (line.isEmpty())
+            continue;
+
+        if (skipHeader) {
+            skipHeader = false;
+            continue;
+        }
+
+        QStringList data = line.split('|');
+
+        if (data.size() < 8)
+            continue;
+
+        QString fromId = data[6];
+        QString toId   = data[7];
+
+        if (fromId == currentUserId ||
+            toId == currentUserId) {
+
+            TransactionRecord record;
+
+            record.id        = data[0].toInt();
+            record.dateTime  = data[1];
+            record.type      = data[2];
+            record.amount    = data[3].toDouble();
+            record.fromBank  = data[4];
+            record.toBank    = data[5];
+            record.fromId    = fromId;
+            record.toId      = toId;
+
+            myTransactions.push_front(record);
+        }
+    }
+
+    file.close();
+
+    return myTransactions;
+}

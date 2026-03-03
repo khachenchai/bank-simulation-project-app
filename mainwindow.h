@@ -17,6 +17,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void refreshBalance();
+    void refreshHistory();
 
 private slots:
     void on_TopupBtn_clicked();
