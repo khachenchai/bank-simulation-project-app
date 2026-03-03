@@ -16,7 +16,7 @@ public:
         TopUp,
         Transfer
     };
-    explicit ConfirmTransactionDialog(TransactionType type, QString fromBank, double balance, QWidget *parent = nullptr);
+    explicit ConfirmTransactionDialog(TransactionType type, QString fromBank, QString toBank, QString targetUserId, double balance, QWidget *parent = nullptr);
     ~ConfirmTransactionDialog();
 
 private slots:
@@ -26,6 +26,8 @@ private:
     TransactionType m_type;
     QString m_fromBank;
     double m_balance;
+    QString m_targetUserId;
+    QString m_toBank;
     void setupUIByType();
     Ui::ConfirmTransactionDialog *ui;
 };

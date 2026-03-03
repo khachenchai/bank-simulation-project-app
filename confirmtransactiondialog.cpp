@@ -5,11 +5,13 @@
 #include "backend/transaction.h"
 #include <QMessageBox>
 
-ConfirmTransactionDialog::ConfirmTransactionDialog(TransactionType type, QString fromBank, double balance, QWidget *parent)
+ConfirmTransactionDialog::ConfirmTransactionDialog(TransactionType type, QString fromBank, QString toBank, QString targetUserId, double balance, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::ConfirmTransactionDialog),
     m_type(type),
     m_fromBank(fromBank),
+    m_toBank(toBank),
+    m_targetUserId(targetUserId),
     m_balance(balance)
 {
     ui->setupUi(this);
@@ -56,26 +58,54 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
 
     Transaction transaction;
 
-    bool isTopupSuccess =
-        transaction.topupFunc(m_fromBank, m_balance);
+    if (m_type == TransactionType::TopUp) {
+        bool isTopupSuccess =
+            transaction.topupFunc(m_fromBank, m_balance);
 
-    if (!isTopupSuccess) {
+        if (!isTopupSuccess) {
 
-        QMessageBox::critical(
+            QMessageBox::critical(
+                this,
+                "Transaction Failed",
+                "Top up failed. Please try again."
+                );
+
+            return;
+        }
+
+        QMessageBox::information(
             this,
-            "Transaction Failed",
-            "Top up failed. Please try again."
+            "Success",
+            "Top up completed successfully."
             );
 
-        return;
+        accept();
+    } else if (m_type == TransactionType::Transfer) {
+        bool isTransferSuccess =
+            transaction.transferFunc(
+                m_targetUserId,
+                m_toBank,
+                m_balance
+                );
+
+        if (!isTransferSuccess) {
+
+            QMessageBox::critical(
+                this,
+                "Transaction Failed",
+                "Transfer failed. Please check the information and try again."
+                );
+
+            return;
+        }
+
+        QMessageBox::information(
+            this,
+            "Success",
+            "Transfer completed successfully."
+            );
+
+        accept();
     }
-
-    QMessageBox::information(
-        this,
-        "Success",
-        "Top up completed successfully."
-        );
-
-    accept();
 }
 
