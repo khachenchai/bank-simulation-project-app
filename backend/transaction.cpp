@@ -13,7 +13,7 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
     if (!User::isLoggedIn())
         return false;
 
-    User::loadDataFromFile();
+    // User::loadDataFromFile();
 
     int index = User::findCurrentUserIndex();
     if (index == -1)
@@ -57,7 +57,7 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
         << "topup" << '|'
         << QString::number(amount, 'f', 2) << '|'
         << selectedBank << '|'
-        << "Mhee Bank" << '|' << '|'
+        << "Mhee Bank" << "||"
         << User::currentUser().getUserId() << '|'
         << '\n';
 
@@ -67,6 +67,59 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
 
     return true;
 }
+
+// bool Transaction::topupFunc(QString selectedBank, double amount)
+// {
+//     if (!User::isLoggedIn())
+//         return false;
+
+//     int index = User::findCurrentUserIndex();
+//     if (index == -1)
+//         return false;
+
+//     User::addBalance(index, amount);
+
+//     User::rewritetxt();
+
+//     // ===== บันทึก transaction =====
+//     QString path = Helper::getTransactionDBPath();
+//     QFile file(path);
+
+//     int id = 0;
+
+//     if (file.exists() &&
+//         file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+
+//         QTextStream in(&file);
+//         while (!in.atEnd()) {
+//             in.readLine();
+//             ++id;
+//         }
+//         file.close();
+//     }
+
+//     if (!file.open(QIODevice::Append | QIODevice::Text)) {
+//         qWarning() << "Cannot open transaction file";
+//         return false;
+//     }
+
+//     QTextStream out(&file);
+//     QString dt = Helper::getDateTimeStr();
+//     QString userId = User::currentUser().getUserId();
+
+//     out << id << '|'
+//         << dt << '|'
+//         << "topup" << '|'
+//         << QString::number(amount, 'f', 2) << '|'
+//         << selectedBank << '|'
+//         << "Mhee Bank" << '|'
+//         << userId << '|'
+//         << '\n';
+
+//     file.close();
+
+//     return true;
+// }
 
 
 // ต้องแก้

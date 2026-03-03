@@ -195,7 +195,7 @@ bool User::login(QString inputCtzId, QString inputPassword){
 //     }
 // }
 void User::rewritetxt(){
-    QFile outFile("../db/user.txt");
+    QFile outFile(Helper::getUserDBPath());
     if (!outFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
         qWarning() << "Cannot rewrite user.txt";
         return;

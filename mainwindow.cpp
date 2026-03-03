@@ -46,10 +46,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::refreshBalance()
+{
+    User& user = User::currentUser();
+
+    double amount = user.getBalance();
+    ui->BalanceLabel->setText(
+        QString::number(amount, 'f', 2)
+    );
+}
+
 void MainWindow::on_TopupBtn_clicked()
 {
     TopUpDialog dlg(this);
-    dlg.exec();
+    if (dlg.exec() == QDialog::Accepted) {
+        refreshBalance();
+    }
 }
 
 

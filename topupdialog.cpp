@@ -17,12 +17,20 @@ TopUpDialog::~TopUpDialog()
     delete ui;
 }
 
-void TopUpDialog::on_ConfirmBtn_clicked()
-{
+void TopUpDialog::on_ConfirmBtn_clicked() {
     QString balanceText = ui->amountEdit->text();
     double balance = balanceText.toDouble();
-    ConfirmTransactionDialog dlg(TransactionType::TopUp, selectedBank, balance, this);
-    dlg.exec();
+
+    ConfirmTransactionDialog dlg(
+        TransactionType::TopUp,
+        selectedBank,
+        balance,
+        this
+        );
+
+    if (dlg.exec() == QDialog::Accepted) {
+        accept();
+    }
 }
 
 QString oriStyleAmountBtn = "padding: 4px;\nbackground: white;\nfont-size: 18px;\nborder-radius: 18px;\nborder: 2px solid #009E2A;\ncolor: #009E2A;\n";
