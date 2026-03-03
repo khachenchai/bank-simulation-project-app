@@ -29,7 +29,15 @@ void TransferDialog::on_SubmitBtn_clicked()
     QString selectBank = ui->BankCombo->text();
     QString recieverId = ui->UserIdEdit->text();
     QString balanceText = ui->BalanceEdit->text();
+    ConfirmTransactionDialog dlg(
+        TransactionType::Transfer,
+        "Mhee Bank",
+        selectBank,
+        recieverId,
+        balanceText.toDouble()
+    );
 
-    
+    dlg.exec();
+
 }
 
