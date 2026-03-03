@@ -73,3 +73,9 @@ void MainWindow::on_TransferBtn_clicked()
     }
 }
 
+
+void MainWindow::on_WithdrawBtn_clicked()
+{
+
+}
+

@@ -23,6 +23,8 @@ private slots:
 
     void on_TransferBtn_clicked();
 
+    void on_WithdrawBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
