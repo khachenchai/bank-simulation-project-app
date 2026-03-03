@@ -49,6 +49,7 @@ class User {
         QString getTel() const {return tel;}
         QString getGender() const {return gender;}
         QString getCtzId() const {return ctzId;}
+        QString getSalt() const {return salt;}
         double getBalance() const {return balance;}
         static void updateBalance(int index, double newBalance);
 
