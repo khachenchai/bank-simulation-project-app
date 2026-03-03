@@ -3,6 +3,8 @@
 #include "confirmtransactiondialog.h"
 using TransactionType = ConfirmTransactionDialog::TransactionType;
 
+static QString selectedBank = "";
+
 TopUpDialog::TopUpDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::TopUpDialog)
@@ -17,7 +19,9 @@ TopUpDialog::~TopUpDialog()
 
 void TopUpDialog::on_ConfirmBtn_clicked()
 {
-    ConfirmTransactionDialog dlg(TransactionType::TopUp, this);
+    QString balanceText = ui->amountEdit->Text();
+    double balance = balanceText.toDouble();
+    ConfirmTransactionDialog dlg(TransactionType::TopUp, selectedBank, balance, this);
     dlg.exec();
 }
 
@@ -92,6 +96,7 @@ void TopUpDialog::on_BankABtn_clicked()
 {
     resetBankButtons();
     ui->BankABtn->setStyleSheet(selectedStyleBankBtn);
+    selectedBank = "Bank A";
 }
 
 
@@ -99,5 +104,6 @@ void TopUpDialog::on_BankBBtn_clicked()
 {
     resetBankButtons();
     ui->BankBBtn->setStyleSheet(selectedStyleBankBtn);
+    selectedBank = "Bank B";
 }
 
