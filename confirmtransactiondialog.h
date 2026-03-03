@@ -19,6 +19,9 @@ public:
     explicit ConfirmTransactionDialog(TransactionType type, QString fromBank, double balance, QWidget *parent = nullptr);
     ~ConfirmTransactionDialog();
 
+private slots:
+    void on_ConfirmBtn_clicked();
+
 private:
     TransactionType m_type;
     QString m_fromBank;

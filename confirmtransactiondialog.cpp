@@ -32,3 +32,9 @@ void ConfirmTransactionDialog::setupUIByType() {
         ui->ToLineEdit->show();
     }
 }
+
+void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
+{
+
+}
+
