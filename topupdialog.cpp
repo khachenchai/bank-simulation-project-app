@@ -40,7 +40,7 @@ QString selectedStyleBankBtn =
 
 void TopUpDialog::resetBankButtons(){
     ui->BankABtn->setStyleSheet(oriStyleBtn);
-    ui->BankBtn->setStyleSheet(oriStyleBtn);
+    ui->BankBBtn->setStyleSheet(oriStyleBtn);
 }
 
 void TopUpDialog::resetTopUpButtons()
