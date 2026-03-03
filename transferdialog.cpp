@@ -23,3 +23,9 @@ TransferDialog::~TransferDialog()
     delete ui;
 }
 
+
+void TransferDialog::on_SubmitBtn_clicked()
+{
+
+}
+

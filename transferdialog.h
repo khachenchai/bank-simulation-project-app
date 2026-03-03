@@ -15,6 +15,9 @@ public:
     explicit TransferDialog(QWidget *parent = nullptr);
     ~TransferDialog();
 
+private slots:
+    void on_SubmitBtn_clicked();
+
 private:
     Ui::TransferDialog *ui;
 };
