@@ -8,6 +8,7 @@
 #include "backend/transaction.h"
 #include "confirmtransactiondialog.h"
 #include <QDebug>
+#include "helper.h"
 
 using TransactionType = ConfirmTransactionDialog::TransactionType;
 
@@ -16,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    this->setWindowTitle("Mhee Bank");
 
     auto *shadow = new QGraphicsDropShadowEffect(this);
     shadow->setBlurRadius(35);
@@ -46,36 +49,45 @@ MainWindow::MainWindow(QWidget *parent)
         delete child;
     }
 
-    for (const auto& t : std::as_const(list)) {
-        TransactionItem *item = new TransactionItem(this);
+    if (list.size() > 0) {
+        ui->NoHistoryText->hide();
+        ui->ScrollAreaOfHistory->show();
+        for (const auto& t : std::as_const(list)) {
+            TransactionItem *item = new TransactionItem(this);
 
-        QString title;
+            QString title;
 
-        if (t.type == "transfer") {
-            if (t.fromId == User::currentUser().getUserId())
-                title = "โอน";
-            else
-                title = "รับเงิน";
-        } else if (t.type == "topup") {
+            if (t.type == "transfer") {
+                if (t.fromId == User::currentUser().getUserId())
+                    title = "โอน";
+                else
+                    title = "รับเงิน";
+            } else if (t.type == "topup") {
 
-            title = "เติม";
+                title = "เติม";
 
-        } else if (t.type == "withdraw") {
+            } else if (t.type == "withdraw") {
 
-            title = "ถอน";
+                title = "ถอน";
 
-        } else {
+            } else {
 
-            title = t.type;
+                title = t.type;
+            }
+
+            QString formattedDT = Helper::formatThaiDateTime(t.dateTime);
+
+            item->setData(
+                title,
+                t.amount,
+                formattedDT
+                );
+
+            ui->ScrollAreaOfHistory->layout()->addWidget(item);
         }
-
-        item->setData(
-            title,
-            t.amount,
-            t.dateTime
-            );
-
-        ui->ScrollAreaOfHistory->layout()->addWidget(item);
+    } else {
+        ui->NoHistoryText->show();
+        ui->ScrollAreaOfHistory->hide();
     }
 
 
@@ -118,39 +130,45 @@ void MainWindow::refreshHistory()
         delete child;
     }
 
-    for (const auto& t : std::as_const(list)) {
-        TransactionItem *item =
-            new TransactionItem(this);
+    if (list.size() > 0) {
+        ui->NoHistoryText->hide();
+        ui->ScrollAreaOfHistory->show();
+        for (const auto& t : std::as_const(list)) {
+            TransactionItem *item = new TransactionItem(this);
 
-        QString typeText;
+            QString title;
 
-        if (t.type == "transfer") {
+            if (t.type == "transfer") {
+                if (t.fromId == User::currentUser().getUserId())
+                    title = "โอน";
+                else
+                    title = "รับเงิน";
+            } else if (t.type == "topup") {
 
-            if (t.fromId == User::currentUser().getUserId())
-                typeText = "โอน";
-            else {
-                typeText = "รับเงิน";
+                title = "เติม";
+
+            } else if (t.type == "withdraw") {
+
+                title = "ถอน";
+
+            } else {
+
+                title = t.type;
             }
 
-        } else if (t.type == "topup") {
+            QString formattedDT = Helper::formatThaiDateTime(t.dateTime);
 
-            typeText = "เติม";
+            item->setData(
+                title,
+                t.amount,
+                formattedDT
+                );
 
-        } else if (t.type == "withdraw") {
-
-            typeText = "ถอน";
-
+            ui->ScrollAreaOfHistory->layout()->addWidget(item);
         }
-        else {
-
-            typeText = t.type;
-        }
-
-        item->setData(typeText,
-                      t.amount,
-                      t.dateTime);
-
-        layout->addWidget(item);
+    } else {
+        ui->NoHistoryText->show();
+        ui->ScrollAreaOfHistory->hide();
     }
 }
 

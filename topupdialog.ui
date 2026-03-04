@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Top Up System</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -130,6 +130,9 @@
            <fontweight>Medium</fontweight>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="styleSheet">
           <string notr="true">QWidget {
 	border: 4px solid #009E2A;
@@ -170,6 +173,9 @@ QWidget::hover {
            <pointsize>-1</pointsize>
            <fontweight>Medium</fontweight>
           </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="styleSheet">
           <string notr="true">QWidget {
@@ -275,6 +281,9 @@ border: 2px solid #BCBCBC;
           <pointsize>-1</pointsize>
          </font>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true">padding: 4px;
 background: white;
@@ -296,6 +305,9 @@ color: #009E2A;
           <pointsize>-1</pointsize>
           <fontweight>DemiBold</fontweight>
          </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true">padding: 4px;
@@ -319,6 +331,9 @@ color: #009E2A;
           <fontweight>DemiBold</fontweight>
          </font>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true">padding: 4px;
 background: white;
@@ -341,6 +356,9 @@ color: #009E2A;
           <fontweight>DemiBold</fontweight>
          </font>
         </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true">padding: 4px;
 background: white;
@@ -362,6 +380,9 @@ color: #009E2A;
           <pointsize>-1</pointsize>
           <fontweight>DemiBold</fontweight>
          </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true">padding: 4px;
@@ -404,6 +425,9 @@ color: #009E2A;
        <pointsize>-1</pointsize>
        <fontweight>DemiBold</fontweight>
       </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: #009E2A;

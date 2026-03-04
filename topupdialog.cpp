@@ -1,6 +1,7 @@
 #include "topupdialog.h"
 #include "ui_topupdialog.h"
 #include "confirmtransactiondialog.h"
+#include <QMessageBox>
 using TransactionType = ConfirmTransactionDialog::TransactionType;
 
 static QString selectedBank = "";
@@ -20,6 +21,16 @@ TopUpDialog::~TopUpDialog()
 void TopUpDialog::on_ConfirmBtn_clicked() {
     QString balanceText = ui->amountEdit->text();
     double balance = balanceText.toDouble();
+
+    if (balance <= 0) {
+        QMessageBox::critical(
+            this,
+            "Transaction Failed",
+            "กรุณากรอกจำนวนเงินให้ถูกต้อง"
+            );
+
+        return;
+    }
 
     ConfirmTransactionDialog dlg(
         TransactionType::TopUp,

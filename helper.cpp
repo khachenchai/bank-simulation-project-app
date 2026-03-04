@@ -87,3 +87,26 @@ QString Helper::getTransactionDBPath() {
     QString filePath = dbPath + "/../../db/transaction.txt";
     return filePath;
 }
+
+QString Helper::formatThaiDateTime(const QString& dateTimeStr) {
+    QDateTime dt = QDateTime::fromString(dateTimeStr, "yyyy-MM-dd HH:mm:ss");
+
+    if (!dt.isValid()) return dateTimeStr;
+
+    QDate date = dt.date();
+    QDate today = QDate::currentDate();
+    QDate yesterday = today.addDays(-1);
+
+    if (date == today) return "วันนี้ " + dt.time().toString("HH : mm") + " น.";
+    else if (date == yesterday) return "เมื่อวาน " + dt.time().toString("HH : mm")  + " น.";
+    else {
+        QLocale thai(QLocale::Thai, QLocale::Thailand);
+
+        QString thaiDate = thai.toString(date, "d MMM yyyy") + " น.";
+
+        int buddhistYear = date.year() + 543;
+        thaiDate.replace(QString::number(date.year()), QString::number(buddhistYear));
+
+        return thaiDate;
+    }
+}

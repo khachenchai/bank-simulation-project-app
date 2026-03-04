@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
+    <width>1068</width>
     <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Register</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background: #FFF3E2;
@@ -204,6 +204,11 @@ QComboBox QAbstractItemView {
            <item>
             <property name="text">
              <string>นางสาว</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>นาง</string>
             </property>
            </item>
           </widget>

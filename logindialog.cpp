@@ -98,8 +98,7 @@ void LoginDialog::on_LoginBtn_clicked()
 void LoginDialog::onRegisterClicked(const QString &link) {
     if (link == "register") {
         RegisterDialog dlg(this);
-        close();
-        dlg.exec();
         // this->close();
+        dlg.exec();
     }
 }

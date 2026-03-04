@@ -2,6 +2,7 @@
 #include "ui_transferdialog.h"
 #include "backend/user.h"
 #include "confirmtransactiondialog.h"
+#include <QMessageBox>
 
 using TransactionType = ConfirmTransactionDialog::TransactionType;
 
@@ -32,6 +33,16 @@ void TransferDialog::on_SubmitBtn_clicked()
     QString selectBank = ui->BankCombo->currentText();
     QString recieverId = ui->UserIdEdit->text();
     QString balanceText = ui->BalanceEdit->text();
+
+    if (balanceText.toDouble() <= 0) {
+        QMessageBox::critical(
+            this,
+            "Transaction Failed",
+            "กรุณากรอกจำนวนเงินให้ถูกต้อง"
+            );
+
+        return;
+    }
     ConfirmTransactionDialog dlg(
         TransactionType::Transfer,
         "Mhee Bank",

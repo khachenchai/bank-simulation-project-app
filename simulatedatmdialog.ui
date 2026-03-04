@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Simulate ATM</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background: #e0ecff;</string>
@@ -70,6 +70,9 @@ color: #000;
        <pointsize>-1</pointsize>
        <fontweight>Medium</fontweight>
       </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: #697aff;

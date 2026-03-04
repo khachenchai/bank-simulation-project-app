@@ -68,7 +68,7 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
 
     if (!user.verifyPassword(passwordInput, user.getSalt())) {
 
-        QMessageBox::warning(
+        QMessageBox::critical(
             this,
             "Login Failed",
             "Incorrect password. Please try again."
@@ -77,9 +77,20 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
         return;
     }
 
+    if (m_balance <= 0) {
+        QMessageBox::critical(
+            this,
+            "Transaction Failed",
+            "กรุณากรอกจำนวนเงินให้ถูกต้อง"
+            );
+
+        return;
+    }
+
     Transaction transaction;
 
     if (m_type == TransactionType::TopUp) {
+
         bool isTopupSuccess =
             transaction.topupFunc(m_fromBank, m_balance);
 

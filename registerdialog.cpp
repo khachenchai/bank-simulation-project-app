@@ -11,6 +11,9 @@ RegisterDialog::RegisterDialog(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->prefixEdit->insertItem(0, "คำนำหน้า");
+    ui->prefixEdit->setCurrentIndex(0);
+
     connect(ui->ToLogin, &QLabel::linkActivated, this, &RegisterDialog::onLoginClicked);
 }
 
@@ -21,9 +24,10 @@ RegisterDialog::~RegisterDialog()
 
 void RegisterDialog::onLoginClicked(const QString &link) {
     if (link == "login") {
-        LoginDialog dlg(this);
-        close();
-        dlg.exec();
+        // LoginDialog dlg(this);
+        // close();
+        // dlg.exec();
+        accept();
     }
 }
 
@@ -35,6 +39,7 @@ void RegisterDialog::on_RegisterBtn_clicked()
     QString fname = ui->firstnameEdit->text(), lname = ui->lastnameEdit->text(), tel = ui->telEdit->text(), ctzId = ui->ctzIdEdit->text();
     QString password = ui->passwordEdit->text(), passwordConfirm = ui->confirmPasswordEdit->text();
 
+    if (ui->prefixEdit->currentIndex() == 0) errors.push_back("กรุณาเลือกคำนำหน้า");
     if (prefix.isEmpty() || fname.isEmpty() || lname.isEmpty()) errors.push_back("กรุณากรอกคำนำหน้า ชื่อจริง นามสกุล ให้ถูกต้อง");
     if (ctzId.isEmpty() || ctzId.size() != 13 || !Helper::checkIsNumerial(ctzId)) errors.push_back("กรุณากรอกเลขบัตรประจำตัวประชาชนให้ถูกต้อง");
     if (tel.isEmpty() || !Helper::checkIsNumerial(tel)) errors.push_back("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
@@ -64,9 +69,10 @@ void RegisterDialog::on_RegisterBtn_clicked()
         QMessageBox::information(this, "Mhee Bank", "สมัครสมาชิกสำเร็จ");
 
 
-        LoginDialog dlg(this);
-        dlg.exec();
-        this->close();
+        // LoginDialog dlg(this);
+        // this->close();
+        // dlg.exec();
+        accept();
 
     }
 }

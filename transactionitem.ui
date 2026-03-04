@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>479</width>
+    <width>484</width>
     <height>300</height>
    </rect>
   </property>
@@ -115,6 +115,9 @@ border: none;
        <pointsize>-1</pointsize>
       </font>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
       <string notr="true">background: #facc14;
 padding: 10px;
@@ -136,6 +139,9 @@ font-size: 16px;
        <pointsize>-1</pointsize>
       </font>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
       <string notr="true">background: #3e80c2;
 padding: 10px;
@@ -145,7 +151,7 @@ font-size: 16px;
 </string>
      </property>
      <property name="text">
-      <string>พิมพ์ใบเสร็จ</string>
+      <string>โหลดสลิป</string>
      </property>
     </widget>
    </item>

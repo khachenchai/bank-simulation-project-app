@@ -15,6 +15,7 @@ class Helper {
         static QString generateOTP();
         static QString getUserDBPath();
         static QString getTransactionDBPath();
+        static QString formatThaiDateTime(const QString& dateTimeStr);
 };
 
 
