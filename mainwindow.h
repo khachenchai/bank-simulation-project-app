@@ -26,6 +26,9 @@ private slots:
 
     void on_WithdrawBtn_clicked();
 
+    void on_LogoutBtn_clicked();
+signals:
+    void logoutRequested();
 private:
     Ui::MainWindow *ui;
 };

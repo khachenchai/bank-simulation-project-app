@@ -9,6 +9,7 @@
 #include "confirmtransactiondialog.h"
 #include <QDebug>
 #include "helper.h"
+#include "logindialog.h"
 
 using TransactionType = ConfirmTransactionDialog::TransactionType;
 
@@ -206,5 +207,15 @@ void MainWindow::on_WithdrawBtn_clicked()
         refreshBalance();
         refreshHistory();
     }
+}
+
+
+void MainWindow::on_LogoutBtn_clicked()
+{
+    User::logout();
+    emit logoutRequested();
+    this->close();
+    // LoginDialog login;
+    // login.exec();
 }
 

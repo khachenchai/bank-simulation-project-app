@@ -7,6 +7,7 @@
 // #include<random>
 #include <QVector>
 #include <QCoreApplication>
+#include <QRandomGenerator>
 
 User User::m_currentUser;
 bool User::m_loginStatus = false;
@@ -97,12 +98,12 @@ bool User::registerFunc(QString prefix, QString firstname, QString lastname, QSt
 
     int newId = allUsers.isEmpty() ? 1 : allUsers.last().getId() + 1;
 
-    QString userId = QString::number(rand() % 90000000 + 10000000);
+    QString userId = QString::number(QRandomGenerator::global()->bounded(10000000, 100000000));
     bool isDuplicate;
 
     do {
         isDuplicate = false;
-        userId = QString::number(rand() % 90000000 + 10000000);
+        userId = QString::number(QRandomGenerator::global()->bounded(10000000, 100000000));
 
         for (const User& user : std::as_const(allUsers)) {
             if (user.userid == userId) {
@@ -131,16 +132,6 @@ bool User::registerFunc(QString prefix, QString firstname, QString lastname, QSt
     );
 
     allUsers.push_back(newUser);
-
-    // QString basePath = QCoreApplication::applicationDirPath();
-    // QString dbPath = basePath;
-
-    // QDir dir;
-    // if (!dir.exists(dbPath)) {
-    //     dir.mkpath(dbPath);
-    // }
-
-    // QString filePath = dbPath + "/../../db/user.txt";
 
     QFile userFile(Helper::getUserDBPath());
     // qDebug() << QDir::currentPath();
@@ -186,14 +177,6 @@ bool User::login(QString inputCtzId, QString inputPassword){
     return false;
 }
 
-// void User::reloadLoginUser(){
-//     for(int i=0;i<allUsers.size();i++){
-//         if(allUsers[i].userid == loginUser.userid){
-//             allUsers[i] = loginUser;
-//             break;
-//         }
-//     }
-// }
 void User::rewritetxt(){
     QFile outFile(Helper::getUserDBPath());
     if (!outFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -285,4 +268,9 @@ QString User::getFullnameByUserId(const QString& userId) {
         return allUsers[index].getFullname();
 
     return "Unknown User";
+}
+
+void User::logout() {
+    m_loginStatus = false;
+    m_currentUser = User();
 }

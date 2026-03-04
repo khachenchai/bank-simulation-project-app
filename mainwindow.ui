@@ -140,7 +140,7 @@ color: #555;
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="LogoutBtn">
             <property name="font">
              <font>
               <family>Kanit</family>
