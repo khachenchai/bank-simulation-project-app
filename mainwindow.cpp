@@ -7,6 +7,7 @@
 #include "transferdialog.h"
 #include "backend/transaction.h"
 #include "confirmtransactiondialog.h"
+#include <QDebug>
 
 using TransactionType = ConfirmTransactionDialog::TransactionType;
 
@@ -54,10 +55,14 @@ MainWindow::MainWindow(QWidget *parent)
             if (t.fromId == User::currentUser().getUserId())
                 title = "โอน";
             else
-                title = "ถอน";
+                title = "รับเงิน";
         } else if (t.type == "topup") {
 
             title = "เติม";
+
+        } else if (t.type == "withdraw") {
+
+            title = "ถอน";
 
         } else {
 
@@ -114,7 +119,6 @@ void MainWindow::refreshHistory()
     }
 
     for (const auto& t : std::as_const(list)) {
-
         TransactionItem *item =
             new TransactionItem(this);
 
@@ -124,14 +128,20 @@ void MainWindow::refreshHistory()
 
             if (t.fromId == User::currentUser().getUserId())
                 typeText = "โอน";
-            else
-                typeText = "ถอน";
+            else {
+                typeText = "รับเงิน";
+            }
 
         } else if (t.type == "topup") {
 
             typeText = "เติม";
 
-        } else {
+        } else if (t.type == "withdraw") {
+
+            typeText = "ถอน";
+
+        }
+        else {
 
             typeText = t.type;
         }
@@ -174,6 +184,9 @@ void MainWindow::on_WithdrawBtn_clicked()
         0
         );
 
-    dlg.exec();
+    if (dlg.exec() == QDialog::Accepted) {
+        refreshBalance();
+        refreshHistory();
+    }
 }
 

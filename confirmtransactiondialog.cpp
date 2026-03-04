@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include "confirmwithdrawdialog.h"
 #include "helper.h"
-#include "simulatedatmdialog.h"
+// #include "simulatedatmdialog.h"
 
 ConfirmTransactionDialog::ConfirmTransactionDialog(TransactionType type, QString fromBank, QString toBank, QString targetUserId, double balance, QWidget *parent)
     : QDialog(parent)
@@ -129,9 +129,12 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
         accept();
     } else if (m_type == TransactionType::Withdraw) {
         QString otpStr = Helper::generateOTP();
+        double balance = ui->InputBalanceEdit->text().toDouble();
 
-        ConfirmWithdrawDialog dlg(otpStr, 0, this);
-        dlg.exec();
+        ConfirmWithdrawDialog dlg(otpStr, balance, this);
+        if (dlg.exec() == QDialog::Accepted) {
+            accept();
+        }
     }
 }
 

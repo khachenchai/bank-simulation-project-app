@@ -58,7 +58,7 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
         << QString::number(amount, 'f', 2) << '|'
         << selectedBank << '|'
         << "Mhee Bank" << "||"
-        << User::currentUser().getUserId() << '|'
+        << User::currentUser().getUserId()
         << '\n';
 
     file.close();
@@ -69,23 +69,21 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
 }
 
 // ต้องแก้
-QString Transaction::withdrawFunc(double amount)
+bool Transaction::withdrawFunc(double amount)
 {
-    if (!User::isLoggedIn()) return "";
+    if (!User::isLoggedIn()) return false;
 
-    if (amount <= 0) return "";
+    if (amount <= 0) return false;
 
     User::loadDataFromFile();
 
     int index = User::findCurrentUserIndex();
-    if (index == -1) return "";
+    if (index == -1) return false;
 
     double currentBalance =
         User::currentUser().getBalance();
 
-    if (amount > currentBalance) return "";
-
-    QString otpStr = Helper::generateOTP();
+    if (amount > currentBalance) return false;
 
     double newBalance = currentBalance - amount;
 
@@ -93,7 +91,46 @@ QString Transaction::withdrawFunc(double amount)
 
     User::rewritetxt();
 
-    return otpStr;
+    // ===== บันทึก transaction =====
+    QString path = Helper::getTransactionDBPath();
+    QFile file(path);
+
+    int id = 0;
+
+    if (file.exists() &&
+        file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            in.readLine();
+            ++id;
+        }
+        file.close();
+    }
+
+    if (!file.open(QIODevice::Append | QIODevice::Text)) {
+        qWarning() << "Cannot open transaction file";
+        return false;
+    }
+
+    QTextStream out(&file);
+    QString dt = Helper::getDateTimeStr();
+    QString userId = User::currentUser().getUserId();
+
+    out << id << '|'
+        << dt << '|'
+        << "withdraw" << '|'
+        << QString::number(amount, 'f', 2) << '|'
+        << "Mhee Bank" << '|'
+        << "" << "|"
+        << User::currentUser().getUserId() << '|'
+        << '\n';
+
+    file.close();
+
+    qDebug() << "Transfer success";
+
+    return true;
 }
 
 bool Transaction::transferFunc(const QString& inputuserid, QString toBank, double amount) {

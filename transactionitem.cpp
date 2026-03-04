@@ -19,7 +19,7 @@ void TransactionItem::setData(QString title, double amount, QString date)
     ui->labelTitle->setText(title);
     QString formattedAmount = "";
     if (title == "โอน" || title == "ถอน") formattedAmount += "- ";
-    else if (title == "เติม") formattedAmount += "+ ";
+    else if (title == "เติม" || title == "รับเงิน") formattedAmount += "+ ";
     formattedAmount += QString::number(amount);
     ui->labelAmount->setText(formattedAmount + " บาท");
     ui->labelDate->setText(date);
@@ -29,7 +29,7 @@ void TransactionItem::setData(QString title, double amount, QString date)
             "font-size:16px;"
             "color:red;"
             );
-    else if (title == "เติม")
+    else if (title == "เติม" || title == "รับเงิน")
         ui->labelAmount->setStyleSheet(
             "font-size:16px;"
             "font-weight:bold;"

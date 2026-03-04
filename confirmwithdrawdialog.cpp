@@ -2,6 +2,7 @@
 #include "ui_confirmwithdrawdialog.h"
 #include <QGraphicsDropShadowEffect>
 #include "simulatedatmdialog.h"
+#include <QDebug>
 
 ConfirmWithdrawDialog::ConfirmWithdrawDialog(QString otpStr, double balance, QWidget *parent)
     : QDialog(parent)
@@ -28,7 +29,10 @@ ConfirmWithdrawDialog::~ConfirmWithdrawDialog()
 
 void ConfirmWithdrawDialog::on_OpenATMBtn_clicked()
 {
-    SimulatedATMDialog dlg(this);
-    dlg.exec();
+    qDebug() << m_balance;
+    SimulatedATMDialog dlg(m_otpStr, m_balance, this);
+    if (dlg.exec() == QDialog::Accepted) {
+        accept();
+    }
 }
 

@@ -132,19 +132,19 @@ bool User::registerFunc(QString prefix, QString firstname, QString lastname, QSt
 
     allUsers.push_back(newUser);
 
-    QString basePath = QCoreApplication::applicationDirPath();
-    QString dbPath = basePath;
+    // QString basePath = QCoreApplication::applicationDirPath();
+    // QString dbPath = basePath;
 
-    QDir dir;
-    if (!dir.exists(dbPath)) {
-        dir.mkpath(dbPath);
-    }
+    // QDir dir;
+    // if (!dir.exists(dbPath)) {
+    //     dir.mkpath(dbPath);
+    // }
 
-    QString filePath = dbPath + "/../../db/user.txt";
+    // QString filePath = dbPath + "/../../db/user.txt";
 
-    QFile userFile(filePath);
-    qDebug() << QDir::currentPath();
-    qDebug() << filePath;
+    QFile userFile(Helper::getUserDBPath());
+    // qDebug() << QDir::currentPath();
+    // qDebug() << filePath;
 
     if (!userFile.open(QIODevice::Append | QIODevice::Text)) {
         qDebug() << "Cannot open file:" << userFile.errorString();
