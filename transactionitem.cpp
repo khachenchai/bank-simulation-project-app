@@ -149,7 +149,7 @@ void TransactionItem::on_descBtn_clicked()
 
     detail += "ประเภทธุรกรรม : " + m_title + "\n";
     detail += "จำนวนเงิน : " + QString::number(m_amount, 'f', 2) + " บาท\n";
-    detail += "วันที่ทำรายการ : " + thaiDate + "\n\n";
+    detail += "วันที่ทำรายการ : " + thaiDate + " น." + "\n\n";
 
     if (m_title == "โอน") {
 

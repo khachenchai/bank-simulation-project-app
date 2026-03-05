@@ -14,7 +14,7 @@ LoginDialog::LoginDialog(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QPixmap pix(":/assets/assets/img/logo_resized2.png");
+    QPixmap pix(":/assets/assets/img/logo_new_nobg.png");
     // int w = ui->LogoLabel->width();
     int h = ui->LogoLabel->height();
 

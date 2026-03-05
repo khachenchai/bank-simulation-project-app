@@ -80,15 +80,7 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
     qDebug() << "m_balance: " << m_balance;
     // qDebug() << "m_balance: " << ;
 
-    if (m_balance <= 0) {
-        QMessageBox::critical(
-            this,
-            "Transaction Failed",
-            "กรุณากรอกจำนวนเงินให้ถูกต้อง"
-            );
 
-        return;
-    }
 
     // ui->InputBalanceEdit->text().toDouble()
 
@@ -104,11 +96,13 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
             QMessageBox::critical(
                 this,
                 "Transaction Failed",
-                "Top up failed. Please try again."
+                "ธุรกรรมล้มเหลว โปรดลองอีกครั้ง"
                 );
 
             return;
         }
+
+        qDebug() << "m_balance: " << m_balance;
 
         if (m_balance <= 0) {
             QMessageBox::critical(
@@ -123,11 +117,21 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
         QMessageBox::information(
             this,
             "Success",
-            "Top up completed successfully."
+            "การเติมเงินสำเร็จ"
             );
 
         accept();
     } else if (m_type == TransactionType::Transfer) {
+        if (m_balance <= 0 || m_balance > User::currentUser().getBalance()) {
+            QMessageBox::critical(
+                this,
+                "Transaction Failed",
+                "กรุณากรอกจำนวนเงินให้ถูกต้อง"
+                );
+
+            return;
+        }
+
         bool isTransferSuccess =
             transaction.transferFunc(
                 m_targetUserId,
@@ -140,7 +144,7 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
             QMessageBox::critical(
                 this,
                 "Transaction Failed",
-                "Transfer failed. Please check the information and try again."
+                "ธุรกรรมล้มเหลว โปรดลองอีกครั้ง"
                 );
 
             return;
@@ -159,7 +163,7 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
         QMessageBox::information(
             this,
             "Success",
-            "Transfer completed successfully."
+            "การโอนเงินสำเร็จ"
             );
 
         accept();

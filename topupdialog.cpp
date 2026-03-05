@@ -19,8 +19,10 @@ TopUpDialog::~TopUpDialog()
 }
 
 void TopUpDialog::on_ConfirmBtn_clicked() {
-    QString balanceText = ui->amountEdit->text();
+    QString balanceText = ui->amountEdit->text().trimmed();
     double balance = balanceText.toDouble();
+
+    qDebug() << "balance: " << balance;
 
     if (balance <= 0) {
         QMessageBox::critical(

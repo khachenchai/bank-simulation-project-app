@@ -15,6 +15,18 @@ RegisterDialog::RegisterDialog(QWidget *parent)
     ui->prefixEdit->setCurrentIndex(0);
 
     connect(ui->ToLogin, &QLabel::linkActivated, this, &RegisterDialog::onLoginClicked);
+
+    QPixmap pix(":/assets/assets/img/logo_new_nobg.png");
+    // int w = ui->LogoLabel->width();
+    int h = ui->LogoLabel->height();
+
+    ui->LogoLabel->setPixmap(
+        pix.scaled(
+            600, h,
+            Qt::KeepAspectRatio,
+            Qt::SmoothTransformation
+            )
+        );
 }
 
 RegisterDialog::~RegisterDialog()
