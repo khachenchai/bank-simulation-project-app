@@ -1,5 +1,1 @@
 id|date_time|transaction|balance|from_bank|to_bank|fromId|toId
-1|2026-03-05 19:25:09|transfer|50.00|Mhee Bank|Mhee Bank|85930694|94720575
-2|2026-03-05 19:30:39|topup|100.00|Bank A|Mhee Bank||72743960
-3|2026-03-05 19:32:17|topup|200.00|Bank A|Mhee Bank||72743960
-4|2026-03-05 19:40:02|withdraw|200.00|Mhee Bank||72743960|
