@@ -6,6 +6,7 @@
 #include <QColor>
 #include <QFileDialog>
 #include "helper.h"
+#include "backend/user.h"
 
 TransactionItem::TransactionItem(QWidget *parent)
     : QWidget(parent)
@@ -61,7 +62,19 @@ void TransactionItem::setData(int id, QString date, QString transaction,
 void TransactionItem::on_loadSlipBtn_clicked()
 {
     QString topupTemplatePath = ":/assets/assets/img/slip_template/TopupTemplate.png";
-    QPixmap pixmap(topupTemplatePath);
+    QString selfTransferTemplatePath = ":/assets/assets/img/slip_template/TransferMheeToMheeTemplate.png";
+    QString transferToOtherBanksTemplatePath = ":/assets/assets/img/slip_template/TransferMheeToOtherBanksTemplate.png";
+    QString withdrawTemplatePath = ":/assets/assets/img/slip_template/WithdrawTemplate.png";
+
+    QString thePath;
+
+    if (m_title == "เติม") thePath = topupTemplatePath;
+    else if (m_title == "โอน" || m_title == "รับเงิน") {
+        if (m_toBank != "Mhee Bank") thePath = transferToOtherBanksTemplatePath;
+        else thePath = selfTransferTemplatePath;
+    } else if (m_title == "ถอน") thePath = withdrawTemplatePath;
+
+    QPixmap pixmap(thePath);
     if (pixmap.isNull()) return;
 
     QPainter painter(&pixmap);
@@ -71,15 +84,43 @@ void TransactionItem::on_loadSlipBtn_clicked()
     painter.setPen(QColor(0,0,0));
 
     QDateTime dt = QDateTime::fromString(m_date, "yyyy-MM-dd HH:mm:ss");
-    QString displayDate = dt.toString("dd MMM yyyy HH:mm");
+    // QString displayDate = dt.toString("dd MMM yyyy HH:mm");
 
-    painter.drawText(87,120, "วันที่ " + displayDate + " น.");
+    QLocale thaiLocale(QLocale::Thai, QLocale::Thailand);
+    QString thaiDate = thaiLocale.toString(dt, "dd MMMM yyyy HH:mm");
+
+    painter.drawText(87,120, "วันที่ " + thaiDate + " น.");
 
 
-    painter.drawText(200,405, "From User Bank A");
-    painter.drawText(200,435, "xxx-xxx-xx");
+    if (m_title == "เติม") {
+        painter.drawText(160,405, "From User " + m_fromBank);
+        painter.drawText(160,435, "xxx-xxx-xx");
 
-    painter.drawText(144,775, QString::number(m_id));
+        painter.drawText(540,405, User::getFullnameByUserId(m_toId).isEmpty() ? "Unknown User" : User::getFullnameByUserId(m_toId));
+        painter.drawText(540,435, m_toId.isEmpty() ? "xxx-xxx-xx" : m_toId);
+
+        painter.drawText(144,775, QString::number(m_id));
+    } else if (m_title == "โอน" || m_title == "รับเงิน") {
+        painter.drawText(160,405, User::getFullnameByUserId(m_fromId).isEmpty() ? "Unknown User" : User::getFullnameByUserId(m_fromId));
+        painter.drawText(160,435, m_fromId.isEmpty() ? "xxx-xxx-xx" : m_fromId);
+
+        painter.drawText(540,405, User::getFullnameByUserId(m_toId).isEmpty() ? "Unknown User" : User::getFullnameByUserId(m_toId));
+        painter.drawText(540,435, m_toId.isEmpty() ? "xxx-xxx-xx" : m_toId);
+
+        painter.drawText(144,775, QString::number(m_id));
+    } else if (m_title == "ถอน") {
+        painter.drawText(380,400, User::getFullnameByUserId(m_fromId).isEmpty() ? "Unknown User" : User::getFullnameByUserId(m_fromId));
+        painter.drawText(450,445, m_fromId.isEmpty() ? "xxx-xxx-xx" : m_fromId);
+
+        painter.drawText(144,775, QString::number(m_id));
+    }
+
+    // QLocale thai(QLocale::Thai);
+    // QString formatted_amount = thai.toCurrencyString(m_amount, "");
+
+    painter.drawText(144,875, QString::number(m_amount, 'f', 2) + " บาท");
+
+    painter.drawText(144,975, "0 บาท");
 
     QString fileName = QFileDialog::getSaveFileName(
         this,

@@ -78,6 +78,8 @@ MainWindow::MainWindow(QWidget *parent)
 
             // QString formattedDT = Helper::formatThaiDateTime(t.dateTime);
 
+            qDebug() << "t.toId: " << t.toId;
+
             item->setData(
                 t.id,
                 t.dateTime,
@@ -163,6 +165,8 @@ void MainWindow::refreshHistory()
             }
 
             // QString formattedDT = Helper::formatThaiDateTime(t.dateTime);
+
+            qDebug() << "t.toId: " << t.toId;
 
             item->setData(
                 t.id,

@@ -102,7 +102,7 @@ QString Helper::formatThaiDateTime(const QString& dateTimeStr) {
     else {
         QLocale thai(QLocale::Thai, QLocale::Thailand);
 
-        QString thaiDate = thai.toString(date, "d MMM yyyy") + " น.";
+        QString thaiDate = thai.toString(date, "d MMM yyyy") + dt.time().toString("HH : mm") + " น.";
 
         int buddhistYear = date.year() + 543;
         thaiDate.replace(QString::number(date.year()), QString::number(buddhistYear));
