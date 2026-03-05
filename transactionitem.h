@@ -21,6 +21,8 @@ public:
 
 private slots:
     void on_loadSlipBtn_clicked();
+    void on_descBtn_clicked();
+
 private:
     Ui::TransactionItem *ui;
     QString m_title;

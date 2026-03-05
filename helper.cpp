@@ -97,12 +97,12 @@ QString Helper::formatThaiDateTime(const QString& dateTimeStr) {
     QDate today = QDate::currentDate();
     QDate yesterday = today.addDays(-1);
 
-    if (date == today) return "วันนี้ " + dt.time().toString("HH : mm") + " น.";
-    else if (date == yesterday) return "เมื่อวาน " + dt.time().toString("HH : mm")  + " น.";
+    if (date == today) return "วันนี้ " + dt.time().toString("HH.mm") + " น.";
+    else if (date == yesterday) return "เมื่อวาน " + dt.time().toString("HH.mm")  + " น.";
     else {
         QLocale thai(QLocale::Thai, QLocale::Thailand);
 
-        QString thaiDate = thai.toString(date, "d MMM yyyy") + dt.time().toString("HH : mm") + " น.";
+        QString thaiDate = thai.toString(date, "d MMM yyyy") + ' ' + dt.time().toString("HH.mm") + " น.";
 
         int buddhistYear = date.year() + 543;
         thaiDate.replace(QString::number(date.year()), QString::number(buddhistYear));

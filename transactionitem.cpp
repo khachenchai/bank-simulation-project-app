@@ -7,6 +7,7 @@
 #include <QFileDialog>
 #include "helper.h"
 #include "backend/user.h"
+#include <QMessageBox>
 
 TransactionItem::TransactionItem(QWidget *parent)
     : QWidget(parent)
@@ -94,23 +95,23 @@ void TransactionItem::on_loadSlipBtn_clicked()
 
     if (m_title == "เติม") {
         painter.drawText(160,405, "From User " + m_fromBank);
-        painter.drawText(160,435, "xxx-xxx-xx");
+        painter.drawText(160,435, "xxxxxxxx");
 
         painter.drawText(540,405, User::getFullnameByUserId(m_toId).isEmpty() ? "Unknown User" : User::getFullnameByUserId(m_toId));
-        painter.drawText(540,435, m_toId.isEmpty() ? "xxx-xxx-xx" : m_toId);
+        painter.drawText(540,435, m_toId.isEmpty() ? "xxxxxxxx" : m_toId);
 
         painter.drawText(144,775, QString::number(m_id));
     } else if (m_title == "โอน" || m_title == "รับเงิน") {
         painter.drawText(160,405, User::getFullnameByUserId(m_fromId).isEmpty() ? "Unknown User" : User::getFullnameByUserId(m_fromId));
-        painter.drawText(160,435, m_fromId.isEmpty() ? "xxx-xxx-xx" : m_fromId);
+        painter.drawText(160,435, m_fromId.isEmpty() ? "xxxxxxxx" : m_fromId);
 
         painter.drawText(540,405, User::getFullnameByUserId(m_toId).isEmpty() ? "Unknown User" : User::getFullnameByUserId(m_toId));
-        painter.drawText(540,435, m_toId.isEmpty() ? "xxx-xxx-xx" : m_toId);
+        painter.drawText(540,435, m_toId.isEmpty() ? "xxxxxxxx" : m_toId);
 
         painter.drawText(144,775, QString::number(m_id));
     } else if (m_title == "ถอน") {
         painter.drawText(380,400, User::getFullnameByUserId(m_fromId).isEmpty() ? "Unknown User" : User::getFullnameByUserId(m_fromId));
-        painter.drawText(450,445, m_fromId.isEmpty() ? "xxx-xxx-xx" : m_fromId);
+        painter.drawText(450,445, m_fromId.isEmpty() ? "xxxxxxxx" : m_fromId);
 
         painter.drawText(144,775, QString::number(m_id));
     }
@@ -133,5 +134,70 @@ void TransactionItem::on_loadSlipBtn_clicked()
     {
         pixmap.save(fileName);
     }
+}
+
+
+void TransactionItem::on_descBtn_clicked()
+{
+    QString detail;
+
+    QDateTime dt = QDateTime::fromString(m_date, "yyyy-MM-dd HH:mm:ss");
+    // QString displayDate = dt.toString("dd MMM yyyy HH:mm");
+
+    QLocale thaiLocale(QLocale::Thai, QLocale::Thailand);
+    QString thaiDate = thaiLocale.toString(dt, "dd MMMM yyyy HH:mm");
+
+    detail += "ประเภทธุรกรรม : " + m_title + "\n";
+    detail += "จำนวนเงิน : " + QString::number(m_amount, 'f', 2) + " บาท\n";
+    detail += "วันที่ทำรายการ : " + thaiDate + "\n\n";
+
+    if (m_title == "โอน") {
+
+        detail += "จาก : " + m_fromId + " - " +
+                  User::getFullnameByUserId(m_fromId) + "\n";
+
+        detail += "จากธนาคาร : " + m_fromBank + "\n";
+
+        detail += "ไปยัง : " + m_toId + " - " +
+                  User::getFullnameByUserId(m_toId) + "\n";
+
+        detail += "ไปยังธนาคาร : " + m_toBank + "\n";
+
+    }
+    else if (m_title == "เติม") {
+
+        detail += "จากธนาคาร : " + m_fromBank + "\n";
+
+        detail += "เข้าบัญชี : " + m_toId + " - " +
+                  User::getFullnameByUserId(m_toId) + "\n";
+
+        detail += "ธนาคารปลายทาง : " + m_toBank + "\n";
+
+    }
+    else if (m_title == "ถอน") {
+
+        detail += "จากบัญชี : " + m_fromId + " - " +
+                  User::getFullnameByUserId(m_fromId) + "\n";
+
+        detail += "ธนาคาร : " + m_fromBank + "\n";
+
+    }
+    else if (m_title == "รับเงิน") {
+
+        detail += "จาก : " + m_fromId + " - " +
+                  User::getFullnameByUserId(m_fromId) + "\n";
+
+        detail += "ธนาคารต้นทาง : " + m_fromBank + "\n";
+
+        detail += "เข้าบัญชี : " + m_toId + " - " +
+                  User::getFullnameByUserId(m_toId) + "\n";
+
+    }
+
+    QMessageBox::information(
+        this,
+        "รายละเอียดธุรกรรม",
+        detail
+        );
 }
 
