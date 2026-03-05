@@ -77,6 +77,9 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
         return;
     }
 
+    qDebug() << "m_balance: " << m_balance;
+    // qDebug() << "m_balance: " << ;
+
     if (m_balance <= 0) {
         QMessageBox::critical(
             this,
@@ -86,6 +89,8 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
 
         return;
     }
+
+    // ui->InputBalanceEdit->text().toDouble()
 
     Transaction transaction;
 
@@ -100,6 +105,16 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
                 this,
                 "Transaction Failed",
                 "Top up failed. Please try again."
+                );
+
+            return;
+        }
+
+        if (m_balance <= 0) {
+            QMessageBox::critical(
+                this,
+                "Transaction Failed",
+                "กรุณากรอกจำนวนเงินให้ถูกต้อง"
                 );
 
             return;
@@ -131,6 +146,16 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
             return;
         }
 
+        if (m_balance <= 0) {
+            QMessageBox::critical(
+                this,
+                "Transaction Failed",
+                "กรุณากรอกจำนวนเงินให้ถูกต้อง"
+                );
+
+            return;
+        }
+
         QMessageBox::information(
             this,
             "Success",
@@ -141,6 +166,18 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
     } else if (m_type == TransactionType::Withdraw) {
         QString otpStr = Helper::generateOTP();
         double balance = ui->InputBalanceEdit->text().toDouble();
+
+        qDebug() << "balance: " << balance;
+
+        if (balance <= 0 || balance > User::currentUser().getBalance()) {
+            QMessageBox::critical(
+                this,
+                "Transaction Failed",
+                "กรุณากรอกจำนวนเงินให้ถูกต้อง"
+                );
+
+            return;
+        }
 
         ConfirmWithdrawDialog dlg(otpStr, balance, this);
         if (dlg.exec() == QDialog::Accepted) {

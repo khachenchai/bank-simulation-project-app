@@ -22,3 +22,11 @@ id|date_time|transaction|balance|from_bank|to_bank|fromId|toId
 21|2026-03-04 18:35:04|topup|2000.00|Bank A|Mhee Bank||11846785
 22|2026-03-04 21:14:12|topup|1000.00|Bank B|Mhee Bank||10029358
 23|2026-03-04 21:14:38|topup|300.00|Bank A|Mhee Bank||10029358
+24|2026-03-05 15:21:51|transfer|1000.00|Mhee Bank|Mhee Bank|11846785|10000041
+25|2026-03-05 15:24:01|topup|2000.00|Bank A|Mhee Bank||11846785
+26|2026-03-05 15:27:13|transfer|1500.00|Mhee Bank|Mhee Bank|11846785|10000041
+27|2026-03-05 15:27:23|topup|500.00|Bank B|Mhee Bank||11846785
+28|2026-03-05 15:32:20|withdraw|1500.00|Mhee Bank||11846785|
+29|2026-03-05 15:33:48|withdraw|2000.00|Mhee Bank||11846785|
+30|2026-03-05 15:34:38|withdraw|5.00|Mhee Bank||11846785|
+31|2026-03-05 17:10:05|topup|2000.00|Bank A|Mhee Bank||11846785

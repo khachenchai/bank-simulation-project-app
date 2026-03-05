@@ -108,7 +108,7 @@ border: none;
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="descBtn">
      <property name="font">
       <font>
        <family>Kanit</family>
@@ -132,7 +132,7 @@ font-size: 16px;
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_5">
+    <widget class="QPushButton" name="loadSlipBtn">
      <property name="font">
       <font>
        <family>Kanit</family>

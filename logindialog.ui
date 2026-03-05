@@ -162,6 +162,9 @@ box-shadow: 0px 8px 5px #26ad00;
 
 </string>
         </property>
+        <property name="text">
+         <string>1839901956839</string>
+        </property>
         <property name="placeholderText">
          <string>เลขบัตรประจำตัวประชาชน 13 หลัก</string>
         </property>
@@ -183,6 +186,9 @@ background: white;
 border-radius: 10px;
 border: 2px solid #26ad00;
 box-shadow: 0px 8px 5px #26ad00;</string>
+        </property>
+        <property name="text">
+         <string>123456</string>
         </property>
         <property name="echoMode">
          <enum>QLineEdit::EchoMode::Password</enum>

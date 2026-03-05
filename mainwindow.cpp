@@ -76,12 +76,17 @@ MainWindow::MainWindow(QWidget *parent)
                 title = t.type;
             }
 
-            QString formattedDT = Helper::formatThaiDateTime(t.dateTime);
+            // QString formattedDT = Helper::formatThaiDateTime(t.dateTime);
 
             item->setData(
+                t.id,
+                t.dateTime,
                 title,
                 t.amount,
-                formattedDT
+                t.fromBank,
+                t.toBank,
+                t.fromId,
+                t.toId
                 );
 
             ui->ScrollAreaOfHistory->layout()->addWidget(item);
@@ -157,12 +162,17 @@ void MainWindow::refreshHistory()
                 title = t.type;
             }
 
-            QString formattedDT = Helper::formatThaiDateTime(t.dateTime);
+            // QString formattedDT = Helper::formatThaiDateTime(t.dateTime);
 
             item->setData(
+                t.id,
+                t.dateTime,
                 title,
                 t.amount,
-                formattedDT
+                t.fromBank,
+                t.toBank,
+                t.fromId,
+                t.toId
                 );
 
             ui->ScrollAreaOfHistory->layout()->addWidget(item);
@@ -200,7 +210,7 @@ void MainWindow::on_WithdrawBtn_clicked()
         "Mhee Bank",
         "",
         "",
-        0
+        10
         );
 
     if (dlg.exec() == QDialog::Accepted) {
