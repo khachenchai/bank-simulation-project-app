@@ -86,9 +86,9 @@ background: qlineargradient(
           <string notr="true">background: transparent;
 </string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,0">
           <item>
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="NameTitle">
             <property name="font">
              <font>
               <family>Kanit</family>
@@ -105,12 +105,12 @@ color: #000;
              <string>สวัสดี, คเชนทร์ชัย</string>
             </property>
             <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+             <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label">
+           <widget class="QLabel" name="UserIdLabel">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -135,7 +135,37 @@ color: #555;
              <string>หมายเลขบัญชี : 123-xxx-xxxx</string>
             </property>
             <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTop|Qt::AlignmentFlag::AlignTrailing</set>
+             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="LogoutBtn">
+            <property name="font">
+             <font>
+              <family>Kanit</family>
+              <pointsize>10</pointsize>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+	color: white;
+background: red;
+padding: 10px;
+border-radius: 8px;
+margin-left: 16px;
+}
+
+QPushButton:hover {
+	background: #b50000;
+}</string>
+            </property>
+            <property name="text">
+             <string>ออกจากระบบ</string>
             </property>
            </widget>
           </item>
@@ -246,6 +276,9 @@ background: transparent;
               <pointsize>14</pointsize>
              </font>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="styleSheet">
              <string notr="true">background: #009E2A;
 padding: 10px;
@@ -287,6 +320,9 @@ color: white;
               <pointsize>14</pointsize>
              </font>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="styleSheet">
              <string notr="true">background: #009E2A;
 padding: 10px;
@@ -327,6 +363,9 @@ color: white;
               <family>Kanit</family>
               <pointsize>14</pointsize>
              </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
              <string notr="true">background: #009E2A;
@@ -389,6 +428,27 @@ color: #000;
          </property>
          <property name="text">
           <string>ประวัติการทำธุรกรรม</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="NoHistoryText">
+         <property name="font">
+          <font>
+           <family>Kanit</family>
+           <pointsize>12</pointsize>
+           <fontweight>Medium</fontweight>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: grey;
+</string>
+         </property>
+         <property name="text">
+          <string>-- ไม่มีประวัติการทำธุรกรรม --</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
          </property>
         </widget>
        </item>

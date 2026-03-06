@@ -16,10 +16,19 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void refreshBalance();
+    void refreshHistory();
 
 private slots:
     void on_TopupBtn_clicked();
 
+    void on_TransferBtn_clicked();
+
+    void on_WithdrawBtn_clicked();
+
+    void on_LogoutBtn_clicked();
+signals:
+    void logoutRequested();
 private:
     Ui::MainWindow *ui;
 };

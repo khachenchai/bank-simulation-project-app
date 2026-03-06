@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>479</width>
+    <width>484</width>
     <height>300</height>
    </rect>
   </property>
@@ -108,12 +108,15 @@ border: none;
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="descBtn">
      <property name="font">
       <font>
        <family>Kanit</family>
        <pointsize>-1</pointsize>
       </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background: #facc14;
@@ -129,12 +132,15 @@ font-size: 16px;
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_5">
+    <widget class="QPushButton" name="loadSlipBtn">
      <property name="font">
       <font>
        <family>Kanit</family>
        <pointsize>-1</pointsize>
       </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">background: #3e80c2;
@@ -145,7 +151,7 @@ font-size: 16px;
 </string>
      </property>
      <property name="text">
-      <string>พิมพ์ใบเสร็จ</string>
+      <string>โหลดสลิป</string>
      </property>
     </widget>
    </item>

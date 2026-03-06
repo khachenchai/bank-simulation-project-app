@@ -19,6 +19,8 @@ public:
 private slots:
     void onLoginClicked(const QString &link);
 
+    void on_RegisterBtn_clicked();
+
 private:
     Ui::RegisterDialog *ui;
 };

@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
+    <width>1068</width>
     <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Register</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background: #FFF3E2;
@@ -21,7 +21,23 @@ border-radius: 20px;
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QWidget" name="widget_7" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0,0">
+      <property name="leftMargin">
+       <number>11</number>
+      </property>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
       <item>
        <widget class="QLabel" name="LogoLabel">
         <property name="sizePolicy">
@@ -52,7 +68,7 @@ border-radius: 20px;
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="resources.qrc">:/assets/assets/img/logo_resized.png</pixmap>
+         <pixmap resource="resources.qrc">:/assets/assets/img/logo_new_nobg2.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>false</bool>
@@ -61,6 +77,19 @@ border-radius: 20px;
          <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
@@ -204,6 +233,11 @@ QComboBox QAbstractItemView {
            <item>
             <property name="text">
              <string>นางสาว</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>นาง</string>
             </property>
            </item>
           </widget>

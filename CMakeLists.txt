@@ -21,6 +21,13 @@ set(PROJECT_SOURCES
         logindialog.h
         logindialog.ui
         resources.qrc
+        backend/user.cpp
+        backend/transaction.cpp
+        backend/user.h
+        backend/transaction.h
+        db/user.txt
+        db/transaction.txt
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -31,6 +38,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         transactionitem.h transactionitem.cpp transactionitem.ui
         helper.h
         topupdialog.h topupdialog.cpp topupdialog.ui
+        confirmtransactiondialog.h confirmtransactiondialog.cpp confirmtransactiondialog.ui
+        transferdialog.h transferdialog.cpp transferdialog.ui
+        confirmwithdrawdialog.h confirmwithdrawdialog.cpp confirmwithdrawdialog.ui
+        helper.cpp
+        simulatedatmdialog.h simulatedatmdialog.cpp simulatedatmdialog.ui
+
         # logindialog.h logindialog.cpp logindialog.ui
     )
 # Define target properties for Android with Qt 6 as:

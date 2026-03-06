@@ -17,9 +17,23 @@ public:
     ~TopUpDialog();
 
 private slots:
-    void onBankAClicked();
-    void onBankBClicked();
-    void onSubmitClicked();
+    void on_ConfirmBtn_clicked();
+
+    void on_Top100_clicked();
+
+    void on_Top300_clicked();
+
+    void on_Top500_clicked();
+
+    void on_Top1000_clicked();
+
+    void on_Top2000_clicked();
+    void resetTopUpButtons();
+    void resetBankButtons();
+
+    void on_BankABtn_clicked();
+
+    void on_BankBBtn_clicked();
 
 private:
     Ui::TopUpDialog *ui;

@@ -1,9 +1,15 @@
 <RCC>
     <qresource prefix="/assets">
         <file>assets/img/logo.png</file>
-	<file>assets/img/logo_resized.png</file>
-	<file>assets/img/logo_resized2.png</file>
-	<file>assets/img/eye.png</file>
-	<file>assets/img/eye_hide.png</file>
+        <file>assets/img/logo_resized.png</file>
+        <file>assets/img/logo_resized2.png</file>
+        <file>assets/img/eye.png</file>
+        <file>assets/img/eye_hide.png</file>
+	<file>assets/img/logo_new_nobg.png</file>
+	<file>assets/img/logo_new_nobg2.png</file>
+        <file>assets/img/slip_template/TopupTemplate.png</file>
+        <file>assets/img/slip_template/TransferMheeToMheeTemplate.png</file>
+        <file>assets/img/slip_template/TransferMheeToOtherBanksTemplate.png</file>
+        <file>assets/img/slip_template/WithdrawTemplate.png</file>
     </qresource>
 </RCC>
