@@ -2,6 +2,7 @@
 #define TOPUPDIALOG_H
 
 #include <QDialog>
+#include <QString>
 
 namespace Ui {
 class TopUpDialog;
@@ -36,6 +37,7 @@ private slots:
 
 private:
     Ui::TopUpDialog *ui;
+    QString selectedBank;
 };
 
 #endif // TOPUPDIALOG_H
