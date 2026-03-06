@@ -245,21 +245,21 @@ double User::getBalanceByIndex(int index) {
     return 0;
 }
 
-void User::addBalance(int index, double amount) {
-    if (index >= 0 && index < allUsers.size()) {
+// void User::addBalance(int index, double amount) {
+//     if (index >= 0 && index < allUsers.size()) {
 
-        double newBalance =
-            allUsers[index].getBalance() + amount;
+//         double newBalance =
+//             allUsers[index].getBalance() + amount;
 
-        allUsers[index].setBalance(newBalance);
+//         allUsers[index].setBalance(newBalance);
 
-        // sync session ถ้าเป็น user ที่ login อยู่
-        if (allUsers[index].getUserId() ==
-            m_currentUser.getUserId()) {
-            m_currentUser = allUsers[index];
-        }
-    }
-}
+//         // sync session ถ้าเป็น user ที่ login อยู่
+//         if (allUsers[index].getUserId() ==
+//             m_currentUser.getUserId()) {
+//             m_currentUser = allUsers[index];
+//         }
+//     }
+// }
 
 QString User::getFullnameByUserId(const QString& userId) {
     int index = findUserIndexByUserId(userId);

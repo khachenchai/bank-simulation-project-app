@@ -74,7 +74,7 @@ void RegisterDialog::on_RegisterBtn_clicked()
         );
 
         if (isRegistSuccess == false) {
-            QMessageBox::warning(this, "Mhee Bank", "เลขบัตรประขาขนนี้ถูกใช้แล้ว");
+            QMessageBox::warning(this, "Mhee Bank", "ระบบสมัครสมาชิกไม่สำเร็จ โปรดลองอีกครั้ง");
             return;
         }
 

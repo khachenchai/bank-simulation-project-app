@@ -35,11 +35,10 @@ class User {
         bool login(QString inputusername,QString inputpassword);
         bool verifyPassword(const QString& inputPassword, const QString& salt);
         static void rewritetxt();
-        QString withdrawFunc(double amount);
         static int findUserIndexByUserId(const QString& userId);
         static int findCurrentUserIndex();
         static double getBalanceByIndex(int index);
-        static void addBalance(int index, double amount);
+        // static void addBalance(int index, double amount);
 
         // -- Getter Func --
         int getId() const {return id;}

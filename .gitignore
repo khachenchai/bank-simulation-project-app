@@ -32,3 +32,5 @@ cmake_install.cmake
 *.ilk
 backend-algo/bank function/userpart.cpp
 .vscode/c_cpp_properties.json
+
+db/*

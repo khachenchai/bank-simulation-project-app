@@ -28,26 +28,26 @@ LoginDialog::LoginDialog(QWidget *parent)
 
     ui->LogoLabel->setAlignment(Qt::AlignCenter);
 
-    QAction *toggleEye = new QAction(this);
-    toggleEye->setIcon(QIcon(":/assets/assets/eye_hide.png"));
+    // QAction *toggleEye = new QAction(this);
+    // toggleEye->setIcon(QIcon(":/assets/assets/eye_hide.png"));
 
-    ui->PasswordEdit->addAction(toggleEye, QLineEdit::TrailingPosition);
+    // ui->PasswordEdit->addAction(toggleEye, QLineEdit::TrailingPosition);
 
-    bool isPasswordVisible = false;
+    // bool isPasswordVisible = false;
 
-    connect(toggleEye, &QAction::triggered, this, [=]() mutable {
-        isPasswordVisible = !isPasswordVisible;
+    // connect(toggleEye, &QAction::triggered, this, [=]() mutable {
+    //     isPasswordVisible = !isPasswordVisible;
 
-        ui->PasswordEdit->setEchoMode(
-            isPasswordVisible ? QLineEdit::Normal : QLineEdit::Password
-        );
+    //     ui->PasswordEdit->setEchoMode(
+    //         isPasswordVisible ? QLineEdit::Normal : QLineEdit::Password
+    //     );
 
-        toggleEye->setIcon(QIcon(
-        isPasswordVisible
-            ? ":/assets/assets/eye.png"
-            : ":/assets/assets/eye_hide.png"
-        ));
-    });
+    //     toggleEye->setIcon(QIcon(
+    //     isPasswordVisible
+    //         ? ":/assets/assets/eye.png"
+    //         : ":/assets/assets/eye_hide.png"
+    //     ));
+    // });
 
     connect(ui->NoAcc, &QLabel::linkActivated, this, &LoginDialog::onRegisterClicked);
 }

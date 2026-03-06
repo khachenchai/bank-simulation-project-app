@@ -30,6 +30,11 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
     QString path = Helper::getTransactionDBPath();
     QFile file(path);
 
+    if (!file.open(QIODevice::Append | QIODevice::Text)) {
+        qWarning() << "Cannot open transaction file";
+        return false;
+    }
+
     int id = 0;
 
     if (file.exists() &&
@@ -43,10 +48,7 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
         file.close();
     }
 
-    if (!file.open(QIODevice::Append | QIODevice::Text)) {
-        qWarning() << "Cannot open transaction file";
-        return false;
-    }
+
 
     QTextStream out(&file);
     QString dt = Helper::getDateTimeStr();
@@ -95,6 +97,11 @@ bool Transaction::withdrawFunc(double amount)
     QString path = Helper::getTransactionDBPath();
     QFile file(path);
 
+    if (!file.open(QIODevice::Append | QIODevice::Text)) {
+        qWarning() << "Cannot open transaction file";
+        return false;
+    }
+
     int id = 0;
 
     if (file.exists() &&
@@ -108,10 +115,7 @@ bool Transaction::withdrawFunc(double amount)
         file.close();
     }
 
-    if (!file.open(QIODevice::Append | QIODevice::Text)) {
-        qWarning() << "Cannot open transaction file";
-        return false;
-    }
+
 
     QTextStream out(&file);
     QString dt = Helper::getDateTimeStr();
@@ -128,7 +132,7 @@ bool Transaction::withdrawFunc(double amount)
 
     file.close();
 
-    qDebug() << "Transfer success";
+    qDebug() << "Withdraw success";
 
     return true;
 }
