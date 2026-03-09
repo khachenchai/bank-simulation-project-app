@@ -27,3 +27,4 @@ id|date_time|transaction|balance|from_bank|to_bank|fromId|toId
 0|2026-03-09 17:07:39|topup|2000.00|Bank B|Mhee Bank||72743960
 27|2026-03-09 17:10:34|withdraw|500.00|Mhee Bank||72743960|
 28|2026-03-09 17:12:58|transfer|500.00|Mhee Bank|Mhee Bank|72743960|41413259
+29|2026-03-09 18:25:26|withdraw|20.00|Mhee Bank||87158791|

@@ -30,26 +30,6 @@ LoginDialog::LoginDialog(QWidget *parent)
 
     ui->LogoLabel->setAlignment(Qt::AlignCenter);
 
-    // QAction *toggleEye = new QAction(this);
-    // toggleEye->setIcon(QIcon(":/assets/assets/eye_hide.png"));
-
-    // ui->PasswordEdit->addAction(toggleEye, QLineEdit::TrailingPosition);
-
-    // bool isPasswordVisible = false;
-
-    // connect(toggleEye, &QAction::triggered, this, [=]() mutable {
-    //     isPasswordVisible = !isPasswordVisible;
-
-    //     ui->PasswordEdit->setEchoMode(
-    //         isPasswordVisible ? QLineEdit::Normal : QLineEdit::Password
-    //     );
-
-    //     toggleEye->setIcon(QIcon(
-    //     isPasswordVisible
-    //         ? ":/assets/assets/eye.png"
-    //         : ":/assets/assets/eye_hide.png"
-    //     ));
-    // });
 
     connect(ui->NoAcc, &QLabel::linkActivated, this, &LoginDialog::onRegisterClicked);
 }
@@ -80,7 +60,6 @@ void LoginDialog::on_LoginBtn_clicked()
     } else {
         // login func [Backend Func Here]
         User user;
-        // qDebug() << "User-before: " << user.currentUser().getFullname();
         bool isLoginSuccess = user.login(
             ctzId, password
             );
@@ -89,8 +68,6 @@ void LoginDialog::on_LoginBtn_clicked()
             QMessageBox::warning(this, "Mhee Bank", "เข้าสู่ระบบไม่สำเร็จ");
             return;
         }
-
-        // QMessageBox::information(this, "Mhee Bank", "เข้าสู่ระบบสำเร็จ");
         qDebug() << "User-current: " << user.currentUser().getFullname();
         accept();
     }
