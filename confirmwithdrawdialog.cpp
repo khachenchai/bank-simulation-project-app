@@ -11,6 +11,8 @@ ConfirmWithdrawDialog::ConfirmWithdrawDialog(QString otpStr, double balance, QWi
     m_balance(balance)
 {
     ui->setupUi(this);
+    this->setFixedSize(this->size());
+    this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 
     QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect;
     shadow->setBlurRadius(15);

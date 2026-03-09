@@ -11,6 +11,8 @@ TopUpDialog::TopUpDialog(QWidget *parent)
     , ui(new Ui::TopUpDialog)
 {
     ui->setupUi(this);
+    this->setFixedSize(this->size());
+    this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 }
 
 TopUpDialog::~TopUpDialog()

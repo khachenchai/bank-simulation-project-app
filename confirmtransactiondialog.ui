@@ -221,6 +221,26 @@ border: 2px solid #BCBCBC;
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <family>Kanit</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #787878;
+</string>
+     </property>
+     <property name="text">
+      <string>หมายเหตุ: วงเงินที่สามารถทำธุรกรรมได้คือ 0 - 150,000 บาท</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QWidget" name="widget" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
       <property name="leftMargin">
@@ -305,6 +325,9 @@ font-size: 18px;
 border-radius: 15px;
 border: 2px solid #BCBCBC;
 </string>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::EchoMode::Password</enum>
      </property>
      <property name="placeholderText">
       <string>XXXXXX</string>

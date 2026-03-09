@@ -18,6 +18,8 @@ ConfirmTransactionDialog::ConfirmTransactionDialog(TransactionType type, QString
     m_balance(balance)
 {
     ui->setupUi(this);
+    this->setFixedSize(this->size());
+    this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
     setupUIByType();
 }
 
@@ -71,7 +73,7 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
         QMessageBox::critical(
             this,
             "Login Failed",
-            "Incorrect password. Please try again."
+            "กรุณากรอกรหัสผ่านให้ถูกต้อง"
             );
 
         return;
@@ -104,7 +106,7 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
 
         qDebug() << "m_balance: " << m_balance;
 
-        if (m_balance <= 0) {
+        if (m_balance <= 0 || m_balance > 150000) {
             QMessageBox::critical(
                 this,
                 "Transaction Failed",
@@ -122,7 +124,7 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
 
         accept();
     } else if (m_type == TransactionType::Transfer) {
-        if (m_balance <= 0 || m_balance > User::currentUser().getBalance()) {
+        if (m_balance <= 0 || m_balance > User::currentUser().getBalance() || m_balance > 150000) {
             QMessageBox::critical(
                 this,
                 "Transaction Failed",
@@ -173,7 +175,7 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
 
         qDebug() << "balance: " << balance;
 
-        if (balance <= 0 || balance > User::currentUser().getBalance()) {
+        if (balance <= 0 || balance > User::currentUser().getBalance() || m_balance > 150000) {
             QMessageBox::critical(
                 this,
                 "Transaction Failed",

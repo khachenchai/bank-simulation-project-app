@@ -13,6 +13,8 @@ LoginDialog::LoginDialog(QWidget *parent)
     , ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
+    this->setFixedSize(this->size());
+    this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 
     QPixmap pix(":/assets/assets/img/logo_new_nobg.png");
     // int w = ui->LogoLabel->width();

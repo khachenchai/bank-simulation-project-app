@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1068</width>
+    <width>1082</width>
     <height>600</height>
    </rect>
   </property>
@@ -190,9 +190,9 @@ border: 2px solid #26ad00;
 
 
 /* ตอน hover */
-QComboBox:hover {
+/*QComboBox:hover {
     border-color: #000000;
-}
+} */
 
 /* ตอนกด */
 QComboBox:on {
@@ -376,9 +376,9 @@ border: 2px solid #26ad00;
 
 
 /* ตอน hover */
-QComboBox:hover {
+/*QComboBox:hover {
     border-color: #000000;
-}
+} */
 
 /* ตอนกด */
 QComboBox:on {
@@ -503,6 +503,9 @@ border: 2px solid #26ad00;
              <pointsize>-1</pointsize>
              <bold>true</bold>
             </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: #009E2A;
