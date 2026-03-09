@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "logindialog.h"
+#include "kuydialog.h"
 #include <QApplication>
 
 // int main(int argc, char *argv[])
@@ -13,6 +14,16 @@
 //         return a.exec();
 //     }
 
+// }
+
+// int main(int argc, char *argv[])
+// {
+//     QApplication a(argc, argv);
+
+//     KuyDialog w;
+//     w.show();
+
+//     return a.exec();
 // }
 
 // int main(int argc, char *argv[])
