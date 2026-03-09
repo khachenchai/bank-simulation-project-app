@@ -38,7 +38,6 @@ class User {
         static int findUserIndexByUserId(const QString& userId);
         static int findCurrentUserIndex();
         static double getBalanceByIndex(int index);
-        // static void addBalance(int index, double amount);
 
         // -- Getter Func --
         int getId() const {return id;}
@@ -64,12 +63,6 @@ class User {
         static User m_currentUser;
         static bool m_loginStatus;
         static QVector<User> allUsers;
-
-        // class Func {
-        //     public:
-        //     bool topupFunc(QString selectedBank, double amount);
-        // };
-        // friend class Func;
 };
 
 

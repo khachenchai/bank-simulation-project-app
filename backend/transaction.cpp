@@ -46,10 +46,6 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
         return false;
     }
 
-
-
-
-
     QTextStream out(&file);
     QString dt = Helper::getDateTimeStr();
     QString userId = User::currentUser().getUserId();
@@ -70,7 +66,6 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
     return true;
 }
 
-// ต้องแก้
 bool Transaction::withdrawFunc(double amount)
 {
     if (!User::isLoggedIn()) return false;
@@ -170,7 +165,6 @@ bool Transaction::transferFunc(const QString& inputuserid, QString toBank, doubl
         return false;
     }
 
-    // ===== ทำรายการ =====
     if (toBank == "Mhee Bank") {
         double newSenderBalance = senderBalance - amount;
         double newTargetBalance =

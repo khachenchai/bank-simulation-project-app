@@ -134,8 +134,6 @@ bool User::registerFunc(QString prefix, QString firstname, QString lastname, QSt
     allUsers.push_back(newUser);
 
     QFile userFile(Helper::getUserDBPath());
-    // qDebug() << QDir::currentPath();
-    // qDebug() << filePath;
 
     if (!userFile.open(QIODevice::Append | QIODevice::Text)) {
         qDebug() << "Cannot open file:" << userFile.errorString();
@@ -244,22 +242,6 @@ double User::getBalanceByIndex(int index) {
 
     return 0;
 }
-
-// void User::addBalance(int index, double amount) {
-//     if (index >= 0 && index < allUsers.size()) {
-
-//         double newBalance =
-//             allUsers[index].getBalance() + amount;
-
-//         allUsers[index].setBalance(newBalance);
-
-//         // sync session ถ้าเป็น user ที่ login อยู่
-//         if (allUsers[index].getUserId() ==
-//             m_currentUser.getUserId()) {
-//             m_currentUser = allUsers[index];
-//         }
-//     }
-// }
 
 QString User::getFullnameByUserId(const QString& userId) {
     int index = findUserIndexByUserId(userId);
