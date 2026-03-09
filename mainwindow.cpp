@@ -8,8 +8,8 @@
 #include "backend/transaction.h"
 #include "confirmtransactiondialog.h"
 #include <QDebug>
-#include "helper.h"
-#include "logindialog.h"
+// #include "helper.h"
+// #include "logindialog.h"
 
 using TransactionType = ConfirmTransactionDialog::TransactionType;
 
@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setFixedSize(this->size());
+    this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 
     this->setWindowTitle("Mhee Bank");
 

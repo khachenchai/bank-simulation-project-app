@@ -10,7 +10,8 @@ SimulatedATMDialog::SimulatedATMDialog(QString otpStr, double balance, QWidget *
     m_balance(balance)
 {
     ui->setupUi(this);
-
+    this->setFixedSize(this->size());
+    this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 }
 
 SimulatedATMDialog::~SimulatedATMDialog()

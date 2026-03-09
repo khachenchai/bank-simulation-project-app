@@ -11,6 +11,8 @@ TransferDialog::TransferDialog(QWidget *parent)
     , ui(new Ui::TransferDialog)
 {
     ui->setupUi(this);
+    this->setFixedSize(this->size());
+    this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 
     User user;
 
@@ -34,7 +36,7 @@ void TransferDialog::on_SubmitBtn_clicked()
     QString recieverId = ui->UserIdEdit->text();
     QString balanceText = ui->BalanceEdit->text();
 
-    if (balanceText.toDouble() <= 0 || balanceText.toDouble() > User::currentUser().getBalance()) {
+    if (balanceText.toDouble() <= 0 || balanceText.toDouble() > User::currentUser().getBalance() || balanceText.toDouble() > 150000) {
         QMessageBox::critical(
             this,
             "Transaction Failed",

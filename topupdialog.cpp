@@ -11,6 +11,8 @@ TopUpDialog::TopUpDialog(QWidget *parent)
     , ui(new Ui::TopUpDialog)
 {
     ui->setupUi(this);
+    this->setFixedSize(this->size());
+    this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 }
 
 TopUpDialog::~TopUpDialog()
@@ -24,11 +26,21 @@ void TopUpDialog::on_ConfirmBtn_clicked() {
 
     qDebug() << "balance: " << balance;
 
-    if (balance <= 0) {
+    if (balance <= 0 || balance > 150000) {
         QMessageBox::critical(
             this,
             "Transaction Failed",
             "กรุณากรอกจำนวนเงินให้ถูกต้อง"
+            );
+
+        return;
+    }
+
+    if (selectedBank.isEmpty()) {
+        QMessageBox::critical(
+            this,
+            "Transaction Failed",
+            "กรุณาระบุธนาคาร"
             );
 
         return;

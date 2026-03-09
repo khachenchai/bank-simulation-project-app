@@ -10,9 +10,14 @@ RegisterDialog::RegisterDialog(QWidget *parent)
     , ui(new Ui::RegisterDialog)
 {
     ui->setupUi(this);
+    this->setFixedSize(this->size());
+    this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 
     ui->prefixEdit->insertItem(0, "คำนำหน้า");
     ui->prefixEdit->setCurrentIndex(0);
+
+    ui->genderEdit->insertItem(0, "เพศ");
+    ui->genderEdit->setCurrentIndex(0);
 
     connect(ui->ToLogin, &QLabel::linkActivated, this, &RegisterDialog::onLoginClicked);
 
@@ -55,7 +60,7 @@ void RegisterDialog::on_RegisterBtn_clicked()
     if (prefix.isEmpty() || fname.isEmpty() || lname.isEmpty()) errors.push_back("กรุณากรอกคำนำหน้า ชื่อจริง นามสกุล ให้ถูกต้อง");
     if (ctzId.isEmpty() || ctzId.size() != 13 || !Helper::checkIsNumerial(ctzId)) errors.push_back("กรุณากรอกเลขบัตรประจำตัวประชาชนให้ถูกต้อง");
     if (tel.isEmpty() || !Helper::checkIsNumerial(tel)) errors.push_back("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
-    if (gender.isEmpty()) errors.push_back("กรุณาระบุเพศ");
+    if (gender.isEmpty() || ui->genderEdit->currentIndex() == 0) errors.push_back("กรุณาระบุเพศ");
     if (password.isEmpty() || password.size() != 6 || !Helper::checkIsNumerial(password)) errors.push_back("กรุณากรอกตัวเลขรหัสผ่าน 6 ตัวให้ถูกต้อง");
     if (password != passwordConfirm) errors.push_back("กรุณากรอกยืนยันรหัสผ่านให้ตรงกับช่องรหัสผ่าน");
 

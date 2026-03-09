@@ -377,6 +377,26 @@ QComboBox QAbstractItemView {
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <family>Kanit</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #787878;
+</string>
+     </property>
+     <property name="text">
+      <string>หมายเหตุ: วงเงินที่สามารถทำธุรกรรมได้คือ 0 - 150,000 บาท</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer_3">
      <property name="orientation">
       <enum>Qt::Orientation::Vertical</enum>
