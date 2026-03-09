@@ -13,8 +13,6 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
     if (!User::isLoggedIn())
         return false;
 
-    // User::loadDataFromFile();
-
     int index = User::findCurrentUserIndex();
     if (index == -1)
         return false;
@@ -30,11 +28,6 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
     QString path = Helper::getTransactionDBPath();
     QFile file(path);
 
-    if (!file.open(QIODevice::Append | QIODevice::Text)) {
-        qWarning() << "Cannot open transaction file";
-        return false;
-    }
-
     int id = 0;
 
     if (file.exists() &&
@@ -48,6 +41,13 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
         file.close();
     }
 
+    if (!file.open(QIODevice::Append | QIODevice::Text)) {
+        qWarning() << "Cannot open transaction file";
+        return false;
+    }
+
+
+
 
 
     QTextStream out(&file);
@@ -60,7 +60,7 @@ bool Transaction::topupFunc(QString selectedBank, double amount)
         << QString::number(amount, 'f', 2) << '|'
         << selectedBank << '|'
         << "Mhee Bank" << "||"
-        << User::currentUser().getUserId()
+        << userId
         << '\n';
 
     file.close();
@@ -76,8 +76,6 @@ bool Transaction::withdrawFunc(double amount)
     if (!User::isLoggedIn()) return false;
 
     if (amount <= 0) return false;
-
-    User::loadDataFromFile();
 
     int index = User::findCurrentUserIndex();
     if (index == -1) return false;
@@ -97,11 +95,6 @@ bool Transaction::withdrawFunc(double amount)
     QString path = Helper::getTransactionDBPath();
     QFile file(path);
 
-    if (!file.open(QIODevice::Append | QIODevice::Text)) {
-        qWarning() << "Cannot open transaction file";
-        return false;
-    }
-
     int id = 0;
 
     if (file.exists() &&
@@ -113,6 +106,11 @@ bool Transaction::withdrawFunc(double amount)
             ++id;
         }
         file.close();
+    }
+
+    if (!file.open(QIODevice::Append | QIODevice::Text)) {
+        qWarning() << "Cannot open transaction file";
+        return false;
     }
 
 
@@ -127,7 +125,7 @@ bool Transaction::withdrawFunc(double amount)
         << QString::number(amount, 'f', 2) << '|'
         << "Mhee Bank" << '|'
         << "" << "|"
-        << User::currentUser().getUserId() << '|'
+        << userId << '|'
         << '\n';
 
     file.close();
@@ -148,8 +146,6 @@ bool Transaction::transferFunc(const QString& inputuserid, QString toBank, doubl
         qWarning() << "Invalid amount";
         return false;
     }
-
-    User::loadDataFromFile();
 
     int senderIndex = User::findCurrentUserIndex();
     int targetIndex = -1;
@@ -216,6 +212,7 @@ bool Transaction::transferFunc(const QString& inputuserid, QString toBank, doubl
 
     QTextStream out(&file);
     QString dt = Helper::getDateTimeStr();
+    QString userId = User::currentUser().getUserId();
 
     out << id << '|'
         << dt << '|'
@@ -223,7 +220,7 @@ bool Transaction::transferFunc(const QString& inputuserid, QString toBank, doubl
         << QString::number(amount, 'f', 2) << '|'
         << "Mhee Bank" << '|'
         << toBank << '|'
-        << User::currentUser().getUserId() << '|'
+        << userId << '|'
         << inputuserid
         << '\n';
 
