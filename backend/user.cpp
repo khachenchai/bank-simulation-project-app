@@ -98,7 +98,7 @@ bool User::registerFunc(QString prefix, QString firstname, QString lastname, QSt
 
     int newId = allUsers.isEmpty() ? 1 : allUsers.last().getId() + 1;
 
-    QString userId = QString::number(QRandomGenerator::global()->bounded(10000000, 100000000));
+    QString userId;
     bool isDuplicate;
 
     do {
