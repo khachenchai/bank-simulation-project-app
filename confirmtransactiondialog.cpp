@@ -90,8 +90,21 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
 
     if (m_type == TransactionType::TopUp) {
 
+        qDebug() << "m_balance: " << m_balance;
+        double balance = QString::number(m_balance, 'f', 2).toDouble();
+
+        if (balance < 1 || balance > 150000) {
+            QMessageBox::critical(
+                this,
+                "Transaction Failed",
+                "กรุณากรอกจำนวนเงินให้ถูกต้อง"
+                );
+
+            return;
+        }
+
         bool isTopupSuccess =
-            transaction.topupFunc(m_fromBank, m_balance);
+            transaction.topupFunc(m_fromBank, balance);
 
         if (!isTopupSuccess) {
 
@@ -104,17 +117,7 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
             return;
         }
 
-        qDebug() << "m_balance: " << m_balance;
 
-        if (m_balance <= 0 || m_balance > 150000) {
-            QMessageBox::critical(
-                this,
-                "Transaction Failed",
-                "กรุณากรอกจำนวนเงินให้ถูกต้อง"
-                );
-
-            return;
-        }
 
         QMessageBox::information(
             this,
@@ -124,7 +127,9 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
 
         accept();
     } else if (m_type == TransactionType::Transfer) {
-        if (m_balance <= 0 || m_balance > User::currentUser().getBalance() || m_balance > 150000) {
+        double balance = QString::number(m_balance, 'f', 2).toDouble();
+
+        if (balance < 1 || balance > User::currentUser().getBalance() || balance > 150000) {
             QMessageBox::critical(
                 this,
                 "Transaction Failed",
@@ -138,7 +143,7 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
             transaction.transferFunc(
                 m_targetUserId,
                 m_toBank,
-                m_balance
+                balance
                 );
 
         if (!isTransferSuccess) {
@@ -173,9 +178,11 @@ void ConfirmTransactionDialog::on_ConfirmBtn_clicked()
         QString otpStr = Helper::generateOTP();
         double balance = ui->InputBalanceEdit->text().toDouble();
 
+        balance = QString::number(balance, 'f', 2).toDouble();
+
         qDebug() << "balance: " << balance;
 
-        if (balance <= 0 || balance > User::currentUser().getBalance() || m_balance > 150000) {
+        if (balance < 1 || balance > User::currentUser().getBalance() || balance > 150000) {
             QMessageBox::critical(
                 this,
                 "Transaction Failed",

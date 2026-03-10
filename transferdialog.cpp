@@ -36,7 +36,7 @@ void TransferDialog::on_SubmitBtn_clicked()
     QString recieverId = ui->UserIdEdit->text();
     QString balanceText = ui->BalanceEdit->text();
 
-    if (balanceText.toDouble() <= 0 || balanceText.toDouble() > User::currentUser().getBalance() || balanceText.toDouble() > 150000) {
+    if (balanceText.toDouble() < 1 || balanceText.toDouble() > User::currentUser().getBalance() || balanceText.toDouble() > 150000) {
         QMessageBox::critical(
             this,
             "Transaction Failed",
