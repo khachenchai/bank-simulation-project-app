@@ -4,3 +4,18 @@ id|date_time|transaction|balance|from_bank|to_bank|fromId|toId
 3|2026-03-10 14:46:34|transfer|500.00|Mhee Bank|Mhee Bank|90693207|87158791
 4|2026-03-10 14:47:07|transfer|500.00|Mhee Bank|Bank A|90693207|12345678
 5|2026-03-10 14:47:52|withdraw|300.00|Mhee Bank||90693207|
+6|2026-03-10 16:00:30|withdraw|1000.00|Mhee Bank||87158791|
+7|2026-03-10 16:01:00|topup|150000.00|Bank A|Mhee Bank||87158791
+8|2026-03-10 16:01:19|topup|150000.00|Bank A|Mhee Bank||87158791
+9|2026-03-10 16:01:29|topup|150000.00|Bank B|Mhee Bank||87158791
+10|2026-03-10 16:01:41|topup|150000.00|Bank A|Mhee Bank||87158791
+11|2026-03-10 16:02:01|topup|76767.00|Bank A|Mhee Bank||87158791
+12|2026-03-10 16:02:25|topup|1.67|Bank B|Mhee Bank||87158791
+13|2026-03-10 16:02:47|withdraw|1.00|Mhee Bank||87158791|
+14|2026-03-10 16:31:08|topup|1.67|Bank A|Mhee Bank||87158791
+15|2026-03-10 16:31:27|withdraw|2.00|Mhee Bank||87158791|
+16|2026-03-10 16:36:59|transfer|20.00|Mhee Bank|Mhee Bank|87158791|87158791
+17|2026-03-10 16:37:35|transfer|1000.00|Mhee Bank|Mhee Bank|87158791|87158791
+18|2026-03-10 16:38:08|transfer|8.00|Mhee Bank|Mhee Bank|87158791|87158791
+19|2026-03-10 16:39:47|topup|500.50|Bank A|Mhee Bank||87158791
+20|2026-03-10 16:41:08|withdraw|200.00|Mhee Bank||87158791|
