@@ -35,3 +35,5 @@ backend-algo/bank function/userpart.cpp
 
 db/
 backend-algo/bank function/tempCodeRunnerFile.cpp
+db/transaction.txt
+db/user.txt
