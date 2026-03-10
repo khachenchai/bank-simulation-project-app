@@ -26,7 +26,7 @@ void TopUpDialog::on_ConfirmBtn_clicked() {
 
     qDebug() << "balance: " << balance;
 
-    if (balance <= 0 || balance > 150000) {
+    if (balance < 1 || balance > 150000) {
         QMessageBox::critical(
             this,
             "Transaction Failed",

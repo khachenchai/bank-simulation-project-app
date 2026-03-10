@@ -233,7 +233,7 @@ border: 2px solid #BCBCBC;
 </string>
      </property>
      <property name="text">
-      <string>หมายเหตุ: วงเงินที่สามารถทำธุรกรรมได้คือ 0 - 150,000 บาท</string>
+      <string>หมายเหตุ: วงเงินที่สามารถทำธุรกรรมได้คือ 1 - 150,000 บาท</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
